@@ -54,7 +54,7 @@
       flex-basis: 0;
       flex-grow: 1;
       flex-shrink: 0;
-
+      padding: 10px;
     }
 
     .full {
@@ -126,7 +126,7 @@
 
     /* Introduction */
     .name {
-      font-size: 4.25rem;
+      font-size: 3.85rem;
     }
 
     .tag {
@@ -137,7 +137,6 @@
     /* Education */
     #education {
       text-transform: uppercase;
-      padding: 60px;
     }
 
     /* Technologies */
@@ -151,6 +150,8 @@
 
     .know .divide .subheading {
       font-size: 1.15rem;
+      white-space: nowrap;
+      overflow: hidden;
     }
 
     .know .divide p {
@@ -170,6 +171,7 @@
 
     #contact-me a {
       color: black;
+      margin: 10px;
     }
 
     .round {
@@ -198,6 +200,106 @@
       border-color: black;
       color: white !important;
       background-color: dimgray;
+    }
+
+    footer {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      align-items: center;
+      padding: 24px 40px;
+      color: rgb(88, 96, 105);
+    }
+
+    .findMe {
+      text-align: center;
+    }
+
+    .findMe p {
+      margin: 0.1rem;
+    }
+
+    .findMe a {
+      color: rgb(88, 96, 105);
+    }
+
+    .small-text {
+      font-size: 12px;
+    }
+
+    @media only screen and (max-width: 600px) {
+      section {
+        padding: 20px;
+      }
+
+      ul {
+        padding-inline-start: 20px;
+      }
+
+      .pad-photo {
+        display: none;
+      }
+
+      #intro,
+      .heading {
+        text-align: center;
+      }
+
+      .know {
+        padding: 24px;
+      }
+
+      footer {
+        text-align: center;
+      }
+    }
+
+    @font-face {
+      font-family: 'fontello';
+      src: url('./fontello/font/fontello.eot?29182541');
+      src: url('./fontello/font/fontello.eot?29182541#iefix') format('embedded-opentype'),
+        url('./fontello/font/fontello.woff?29182541') format('woff'),
+        url('./fontello/font/fontello.ttf?29182541') format('truetype'),
+        url('./fontello/font/fontello.svg?29182541#fontello') format('svg');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+
+    .fontello-icon {
+      font-family: "fontello";
+      font-style: normal;
+      font-weight: normal;
+      font-size: 1.25rem;
+      speak: none;
+
+      display: inline-block;
+      text-decoration: inherit;
+      /* width: 1em; */
+      margin-right: .2em;
+      text-align: center;
+      /* opacity: .8; */
+
+      /* For safety - reset parent styles, that can break glyph codes*/
+      font-variant: normal;
+      text-transform: none;
+
+      /* fix buttons height, for twitter bootstrap */
+      /* line-height: 1em; */
+
+      /* Animation center compensation - margins should be symmetric */
+      /* remove if not needed */
+      margin-left: .2em;
+
+      /* You can be more comfortable with increased icons size */
+      /* font-size: 120%; */
+
+      /* Font smoothing. That was taken from TWBS */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+
+      /* Uncomment for 3D effect */
+      /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
     }
   </style>
 </head>
@@ -394,8 +496,7 @@
         <h3 class="subheading">Website development - National Service Scheme</h3>
         <h4 class="date">April 2018 - April 2019</h4>
       </div>
-      <a class="subpoint" href="https://github.com/nautatva/NSS_IIT_Bombay"
-        target="_black">https://github.com/nautatva/NSS_IIT_Bombay</a>
+      <a class="subpoint" href="https://github.com/nautatva/NSS_IIT_Bombay" target="_black">View repo on Github</a>
       <ul>
         <li class="points">Got a perfect google chrome performance and SEO audit score 100</li>
         <li class="points">Involved in building new webpages, forms, sheets on demand of other departments/members of
@@ -410,8 +511,7 @@
         <h3 class="subheading">Techfest android app development</h3>
         <h4 class="date">April 2017 - December 2017</h4>
       </div>
-      <a class="subpoint" href="https://github.com/IamAbhiKaushik/Techfest_App"
-        target="_black">https://github.com/IamAbhiKaushik/Techfest_App</a>
+      <a class="subpoint" href="https://github.com/IamAbhiKaushik/Techfest_App" target="_black">View code on Github</a>
       <ul>
         <li class="points">Complete ideation, designing and programming for the Techfest Android Application using
           Android studio. App released on Play Store with user ratings of 4.7 out of 5 stars</li>
@@ -443,7 +543,7 @@
     <div class="fullpoint">
       <div class="shortpoint flex">
         <h3 class="subheading">Video for visual effects</h3>
-        <h4 class="date">Date</h4>
+        <h4 class="date">Jan 2017</h4>
       </div>
       <a class="subpoint"
         href="https://www.youtube.com/watch?v=uwzgNoCx4Zg&list=PL5wPf9kIza0xU8tIStNom3Z2BVPU6xZhq&index=2"
@@ -459,7 +559,7 @@
     <div class="fullpoint">
       <div class="shortpoint flex">
         <h3 class="subheading">Hostel 7 Branding</h3>
-        <h4 class="date">Date</h4>
+        <h4 class="date">Sep 2016</h4>
       </div>
       <a class="subpoint" href="https://www.behance.net/gallery/42959725/Hostel-7-Branding" target="_black">Logo and
         branding on Behance</a>
@@ -480,7 +580,7 @@
         <h3 class="subheading">Super control beyblade</h3>
         <h4 class="date">Date</h4>
       </div>
-      <a class="subpoint" href="https://www.behance.net/gallery/42959725/Hostel-7-Branding" target="_black">Analysis
+      <a class="subpoint" href="" target="_black">Analysis
         Report</a>
       <ul>
         <li class="points">
@@ -496,7 +596,6 @@
   <section id="contact-me" class="flex">
     <!-- Github and Facebook -->
     <div class="flex">
-
       <a class="round complete-flex-center" href="./CV.pdf">
         <p>Dig a little deeper</p>
         <p>Download my CV</p>
@@ -506,7 +605,20 @@
       <a class="round complete-flex-center" href="mailto:nnautatva@gmail.com">Drop me a mail</a>
     </div>
   </section>
-
+  <footer>
+    <p> This complete webpage is written by me! </p>
+    <div class="findMe">
+      <p> Find me on </p>
+      <a href="https://github.com/nautatva" target="_blank" class="fontello-icon icon-github-circled">&#xf09b;</a>
+      <a href="https://www.facebook.com/nautatva.navlakha" target="_blank"
+        class="fontello-icon icon-facebook-official">&#xf230;</a>
+      <a href="https://in.linkedin.com/in/nautatva" target="_blank" class="fontello-icon icon-linkedin">&#xf0e1;</a>
+      <!-- <a href="" target="_blank" class="fontello-icon icon-twitter">&#xf099;</a> -->
+      <a href="mailto:nnautatva@gmail.com" target="_blank" class="fontello-icon icon-mail-alt">&#xf0e0;</a>
+      <a href="tel:+918275269688" target="_blank" class="fontello-icon icon-phone">&#xe800;</a>
+    </div>
+    <p class="small-text">Fonts taken using google fonts API and icons using Fontello </p>
+  </footer>
 </body>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
