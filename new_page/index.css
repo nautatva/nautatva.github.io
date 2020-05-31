@@ -1,0 +1,131 @@
+/* Essentials */
+/* Navbar */
+/* Secondary navbar */
+
+
+
+/* */
+/* */
+/* */
+
+/* Essentials */
+* {
+  box-sizing: border-box;
+}
+html, body{
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+h1,p{
+  margin: 0.5rem;
+}
+.small-divide{
+  width: 4rem;
+  height: 2px;
+  border: solid 2px #2a5cb2;
+  border-radius: 2px;
+  box-sizing: border-box;
+  margin: 1rem auto;
+}
+.long-divide{
+  width: 13rem;
+  border-top: solid 2px #d9dce2;
+}
+.flex{
+  display: flex;
+  flex-direction: row;
+  z-index: 1;
+}
+.flex-column{
+  flex-direction: column;
+}
+.text-center{
+  text-align: center;
+}
+
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+}
+
+
+
+
+/* Navbar */
+nav{
+  align-items: center;
+  justify-content: space-between;
+}
+nav h1{
+  margin: 0;
+}
+
+
+/* Intro */
+#intro{
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+  background-image: url("./static/camera.jpg");
+  background-color: #000000;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  color: #ffffff;
+}
+
+#intro:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: linear-gradient(to bottom right, #002f4b, #dc4225);
+  opacity: .6;
+}
+
+#intro h1{
+  letter-spacing: 4px;
+  font-size: xx-large;
+}
+
+#intro .qualities{
+  font-size: x-large;
+}
+#intro .graduate{
+
+}
+
+/* Secondary navbar */
+#workflow{ 
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+#workflow li{
+  list-style: none;
+}
