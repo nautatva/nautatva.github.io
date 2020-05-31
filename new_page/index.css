@@ -41,7 +41,9 @@ h1,p{
   flex-direction: column;
 }
 .text-center{
-  text-align: center;
+  text-align: center !important;
+  align-items: center;
+  justify-content: center;
 }
 
 .container {
@@ -121,11 +123,35 @@ nav h1{
 #workflow{ 
   position: sticky;
   top: 0;
-  display: flex;
-  flex-direction: row;
   justify-content: space-evenly;
+  height: 4rem;
+  background-color: white;
 }
 
 #workflow li{
   list-style: none;
+}
+
+#education{
+  height: 500px;
+  border: solid 4px #2a5cb2;
+}
+#workex{
+  height: 500px;
+  border: solid 4px #3ab22a ;
+}
+
+#projects{
+  height: 500px;
+  border: solid 4px #ec10c8 ;
+}
+
+#CV{
+  height: 500px;
+  border: solid 4px #f7cb09 ;
+}
+
+#contactMe{
+  height: 500px;
+  border: solid 4px #f10d0d ;
 }
