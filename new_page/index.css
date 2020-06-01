@@ -73,8 +73,6 @@ h1,p{
 }
 
 
-
-
 /* Navbar */
 nav{
   align-items: center;
@@ -145,6 +143,7 @@ nav h1{
 
 /* Technologies */
 #technologies{
+  display: none;
   height: 500px;
   border: solid 4px #2a5cb2;
 }
