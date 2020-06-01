@@ -1,34 +1,39 @@
-onload = plotCirclesWithText()
+var innerHeight = window.innerHeight, innerWidth = window.innerWidth;
 
-function plotCirclesWithText() {
+onload = checkFeasibility();
+function checkFeasibility() {
+  const MAX_TURNS = 3, MAX_ATTEMPTS = 50, RATING_RANGE = 15; SAFETY_MARGIN = 4;
+
   let elements = document.getElementById("technologies").getElementsByTagName("li");
-  var toPlot = {};
+  toPlot = {};
   for (let i = 0; i < elements.length; i++) {
     const element = elements[i];
     toPlot[element.innerText] = parseInt(element.dataset.radius) / 2;
   }
-  console.log(toPlot);
-  // const toPlot = { "matlab": 4, "c++": 5, "python": 7, "check": 5, hello: 6, welcoe: 10 }
 
-  // console.clear();
-  var log = console.log.bind(console);
+  const t = Object.values(toPlot);
+  const expansionFactor = Math.floor(innerHeight / (RATING_RANGE * SAFETY_MARGIN))
+  const approxArea = Math.PI * ((sum(t) * expansionFactor) ** 2) / t.length
+  const vh = approxArea * SAFETY_MARGIN / innerWidth;
 
-  const MAX_TURNS = 3;
-  const MAX_ATTEMPTS = 50;
-  const RATING_RANGE = 15;
-  const SAFETY_MARGIN = 4;
+  if (vh < innerHeight * 0.9) {
+    plotCirclesWithText(toPlot, MAX_TURNS, MAX_ATTEMPTS, RATING_RANGE, SAFETY_MARGIN);
+  }
+}
 
+
+function plotCirclesWithText(toPlot = {}, MAX_TURNS = 3, MAX_ATTEMPTS = 50, RATING_RANGE = 15, SAFETY_MARGIN = 4) {
   var verbose = 0;
 
   const t = Object.values(toPlot);
-  const expansionFactor = Math.floor(window.innerHeight / (RATING_RANGE * SAFETY_MARGIN))
+  const expansionFactor = Math.floor(innerHeight / (RATING_RANGE * SAFETY_MARGIN))
   const pad = expansionFactor * Math.max.apply(null, t);
 
   const approxArea = Math.PI * ((sum(t) * expansionFactor) ** 2) / t.length
 
   // Reduce vw and vh to ensure full circles come into picture.(made sure by origin shift)
-  const widthForCircles = window.innerWidth - 2 * pad;
-  const heigthForCircles = (approxArea * SAFETY_MARGIN / window.innerWidth) - 2 * pad;
+  const widthForCircles = innerWidth - 2 * pad;
+  const heigthForCircles = (approxArea * SAFETY_MARGIN / innerWidth) - 2 * pad;
   const generateStart = performance.now();
 
   let turn = 0; // Current Turn
@@ -89,12 +94,6 @@ function plotCirclesWithText() {
     return Math.floor(min + (max - min + 1) * Math.random());
   }
 
-  function sum(arr) {
-    return arr.reduce(function (a, b) {
-      return a + b;
-    }, 0);
-  }
-
   function generateCircles() {
     if (wanted.hasOwnProperty("intialize")) {
       delete wanted["intialize"]
@@ -129,7 +128,7 @@ function plotCirclesWithText() {
   }
 
   function drawCircles() {
-    const vw = window.innerWidth;
+    const vw = innerWidth;
     const vh = approxArea * SAFETY_MARGIN / vw;
 
     const canvas = document.getElementById("canvas");
@@ -165,7 +164,8 @@ function plotCirclesWithText() {
 
   function addText() {
     context.fillStyle = "black"; // font color to write the text with
-    context.font = "16px comic sans";
+    context.shadowColor = "rgba(0,0,0,0)";
+    context.font = "16px Comic Sans MS";
     for (let i = 0; i < circlesToPlot.length; i++) {
       const c = circlesToPlot[i];
       // Move it down by half the text height and left by half the text width
@@ -184,4 +184,10 @@ function getRandomColor() {
     color += letters[Math.floor(Math.random() * 16)];
   }
   return color;
+}
+
+function sum(arr) {
+  return arr.reduce(function (a, b) {
+    return a + b;
+  }, 0);
 }
