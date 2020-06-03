@@ -1,3 +1,9 @@
+let noJS = document.getElementsByClassName("no-js");
+for (let i = 0; i < noJS.length; i++) {
+  const element = noJS[i];
+  element.style.display = "none";
+}
+
 var innerHeight = window.innerHeight, innerWidth = window.innerWidth;
 
 onload = checkFeasibility();
@@ -19,6 +25,10 @@ function checkFeasibility() {
   if (vh < innerHeight * 0.9) {
     plotCirclesWithText(toPlot, MAX_TURNS, MAX_ATTEMPTS, RATING_RANGE, SAFETY_MARGIN);
   }
+  // Show some other representation if this is not feasible.
+  // else{
+  //   document.getElementById("technology-list").style.display = "block";
+  // }
 }
 
 
@@ -72,9 +82,6 @@ function plotCirclesWithText(toPlot = {}, MAX_TURNS = 3, MAX_ATTEMPTS = 50, RATI
   let context;
   drawCircles();
   addText();
-
-  log("GENERATE TIME", Math.round(generateTime * 100) / 100);
-  log("TURNS", turn)
 
   // function sortSize(a, b) {
   //   return a.radius - b.radius;
@@ -132,6 +139,7 @@ function plotCirclesWithText(toPlot = {}, MAX_TURNS = 3, MAX_ATTEMPTS = 50, RATI
     const vh = approxArea * SAFETY_MARGIN / vw;
 
     const canvas = document.getElementById("canvas");
+    canvas.style.display = "block";
     context = canvas.getContext("2d");
     const resolution = window.devicePixelRatio || 1;
 

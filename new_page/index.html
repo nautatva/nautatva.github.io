@@ -47,25 +47,37 @@
 
   <!-- Hide workflow for small devices -->
   <div id="workflow" class="flex text-center">
-    <li>Education</li>
-    <li>Technologies</li>
-    <li>Work Experience</li>
-    <li>Projects</li>
+    <li>About me</li>
+    <li class="bigScreen">Technologies I have worked with</li>
+    <li>Things I've done</li>
     <li>CV</li>
-    <li>Contact me</li>
+    <li>Stalk me!</li>
+    <li>Get in touch</li>
   </div>
 
 
-  <div id="education" class="flex flex-column">
-    <p>Degree</p>
-    <p>Bachelor of Technology</p>
-    <a href="https://iitb.ac.in/">Indian Institute of Technology, Bombay</a>
-  </div>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <div id="about" class="flex flex-column">
+    <h3>About me</h3>
 
+    <p>Hi,</p>
+    <p>I am a student at the Indian Institute of Technology, Bombay. Back then, before joining the massive Institute, I knew I loved making things. Perhaps that was the general idea of choosing Civil Engineering over any other disciplines offered, though I already loved tinkering with computers. If I remember correctly, I first made a booting media when I was a sixth-grader. Since then I've been trying out different things, understanding architectures, optimizing services to boost my highly underpowered machine and understanding how a system works. </p>
+
+    <p>My formal introduction to the world of programming was with the basic CS-101 course. With my newfound love for automation and good old passion for tinkering with systems, I decided to pursue my minor in the Computer Science and Engineering Department, taking up the courses related to networks, network security, and Operating Systems. </p>
+
+    <p>I was selected as a Institute System Administrator to maintain <a href="https://gymkhana.iitb.ac.in/">Gymkhana, IITB</a>. This gave me a chance to work on actual servers giving me a first-hand experience of dealing with failures (Recently, an entire RAID system failed unexpectedly within a day!!)</p>
+
+    <p>I like to learn. Throw me some new words I'll most likely be busy on my laptop reading about it! I play badminton, I socialize and (though people keep doubting that) I run! In my pastime, you might find me with my laptop looking for rather unconventional places to visit (Bhaad is a beautiful place in Gujarat!) or find me with my kindle reading something related to the Wizarding World. </p>
+  </div>
+<div id="technologies" class="bigScreen">
+  <h3> Technologies I have worked with </h3>
   <canvas id="canvas"></canvas>
+  <!-- TODO: Didn't like the colors? Reload! -->
+  <!-- TODO: Resize canvas on window size change. (i.e compute this on window change)
+    TODO: check data=canvas.toDataURL('image/jpeg', 1.0); for that
+  https://stackoverflow.com/questions/18922880/html5-canvas-resize-downscale-image-high-quality?rq=1
+  https://stackoverflow.com/questions/28326225/scaling-a-canvas-nicely-with-css -->
   <!-- TODO: Add css to make this compatible with javascript blocking browsers -->
-  <ul id="technologies">
+  <ul class="hide">
     <!-- Languages -->
     <!-- rating from 15 -->
     <li data-radius="14">Python</li>
@@ -77,6 +89,7 @@
     <li data-radius="10">MATLAB</li>
     <li data-radius="4">Go</li>
     <li data-radius="10">Babel</li>
+    <li data-radius="4">Swift</li>
     <!-- <li data-radius="4">Android Studio</li> -->
     <!-- <li data-radius="">Aurdino</li> -->
     <!-- <li data-radius="2">R</li> -->
@@ -95,19 +108,21 @@
     <li data-radius="">AutoCAD</li>
     <li data-radius="">SOLIDWORKS</li> -->
   </ul>
-  <div id="workex">
-
-  </div>
+</div>
   <div id="projects">
+    <h3>Research</h3>
+    <p>During my final year, I started working under the guidance of Prof. Gopal Patil under a project funded by ISRO. The project involved detection of narrow roads from mid-resolution satellite images using deep CNN techniques. I was junior-most in the team, and so, my part involved a lot of software engineering.</p>
 
+    <h3>Developer</h3>
+    <p></p>
   </div>
   <div id="CV">
 
   </div>
   <div id="contactMe">
-
+    <!-- <form action="https://formspree.io/nnautatva@gmail.com" method="POST" class="form-horizontal" role="form"> -->
   </div>
-  <script src="./circle.js"></script>
+  <script src="./index.js"></script>
 </body>
 
 </html>

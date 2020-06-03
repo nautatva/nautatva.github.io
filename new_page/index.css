@@ -24,6 +24,9 @@ ul{
 h1,p{
   margin: 0.5rem;
 }
+h3{
+  text-align: center;
+}
 .small-divide{
   width: 4rem;
   height: 2px;
@@ -72,6 +75,18 @@ h1,p{
   }
 }
 
+.bigScreen{
+  display: none;
+}
+@media (min-width: 1024px) {
+  .bigScreen{
+    display: block;
+  }
+}
+
+.hide{
+  display: none;
+}
 
 /* Navbar */
 nav{
@@ -94,7 +109,6 @@ nav h1{
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-
   color: #ffffff;
 }
 
@@ -136,30 +150,21 @@ nav h1{
 
 
 /* Divisions */
-#education{
-  height: 500px;
+#about{
   border: solid 4px #2a5cb2;
 }
 
 /* Technologies */
 #technologies{
-  display: none;
-  height: 500px;
-  border: solid 4px #2a5cb2;
+  /* border: solid 4px #2a5cb2; */
 }
 
-#technologies li{
-  list-style: none;
-  border-radius: 50%;
-  color: #fff;
-  text-align: center;
-  background: #000
+#canvas{
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }
 
-#workex{
-  height: 500px;
-  border: solid 4px #3ab22a ;
-}
 
 #projects{
   height: 500px;
