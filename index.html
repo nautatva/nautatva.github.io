@@ -320,6 +320,57 @@
       font-size: 0.95rem;
     }
 
+    .view-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.35rem 0.85rem;
+      margin-top: 1.25rem;
+      cursor: pointer;
+      transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+    }
+
+    .view-toggle:hover {
+      border-color: var(--accent);
+      color: var(--accent-hover);
+    }
+
+    .view-toggle-primary {
+      font-size: 0.9rem;
+      padding: 0.6rem 1.4rem;
+      margin-top: 1.75rem;
+      color: var(--bg);
+      background: var(--accent);
+      border-color: var(--accent);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 4px 12px var(--highlight);
+    }
+
+    .view-toggle-primary:hover {
+      color: var(--bg);
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    body.short-view #now,
+    body.short-view #work,
+    body.short-view #selected,
+    body.short-view header .view-toggle {
+      display: none;
+    }
+
+    body:not(.short-view) #short {
+      display: none;
+    }
+
     footer {
       margin-top: 4rem;
       padding-top: 1.5rem;
@@ -384,7 +435,7 @@
   </script>
 </head>
 
-<body>
+<body class="short-view">
   <main>
     <header>
       <h1>Nautatava Navlakha</h1>
@@ -401,7 +452,24 @@
       <p class="lede-coda">
         — I've written code in almost every mainstream programming language.
       </p>
+      <button class="view-toggle js-view-toggle" type="button" aria-pressed="true">← Full view</button>
     </header>
+
+    <section id="short">
+      <h2>Highlights</h2>
+      <ul class="now-list">
+        <li>Founder, <a href="https://navlakha.tech">Navlakha Technologies</a> — <strong>~40M HR transactions in production</strong>; <strong>one of only four companies globally</strong> enabling biometric aggregation over the cloud.</li>
+        <li>Co-founded <a href="https://kwikpic.in">Kwikpic</a> — now serves <strong>65+ countries and ~200M photos/year</strong>; single-shot face-recognition trained on <strong>2M+ faces</strong>.</li>
+        <li><strong>~1000% throughput improvement</strong> on deal processing at <a href="https://www.finmechanics.com">FinMechanics</a> via <em>vectorised pricing</em> & <em>async event-driven architecture</em>.</li>
+        <li>closed sales at <em>NSE</em>, <em>Jio Financial Services</em>, <em>Poonawalla Fincorp</em>; Led fixed-income back-office go-live handling <strong>portfolio value &gt; ₹75,000 Cr</strong>.</li>
+        <li><strong>Youngest member</strong> of <em>FinMechanics' Global Production Support</em> and <em>Infra Management team </em>.</li>
+        <li>Migrated IIT Bombay's identity infrastructure (<strong>~23k users</strong>) to <strong>OAuth 2.0 + OIDC</strong> — still the core login for WiFi, Moodle, ASC, Webmail.</li>
+        <li>Shipped spell-check for <a href="https://github.com/sindresorhus/electron-context-menu">electron-context-menu</a> (<strong>4,000+ dependent repos</strong>); GitHub <em>Arctic Code Vault Contributor</em> — Electron, Caprine, Frappe.</li>
+        <li>ISRO-funded B.Tech thesis — <strong>90% accuracy</strong> on two-lane road detection from satellite imagery vs. 73% prior state-of-the-art.</li>
+        <li>Worked across engineering, product, sales, implementations, infrastructure, quant as well as project management.</li>
+      </ul>
+      <button class="view-toggle view-toggle-primary js-view-toggle" type="button" aria-pressed="true">← Full view</button>
+    </section>
 
     <section id="now">
       <h2>XP</h2>
@@ -443,7 +511,7 @@
           <li><strong>Closed sales</strong> at <em>NSE</em>, <em>Jio Financial Services</em>, and <em>Poonawalla Fincorp</em>.</li>
           <li><strong>Youngest member</strong> of the <em>Global Production Support team</em> & <em>Infra Management team</em>.</li>
           <li>Worked on FM-Converge, a cross-asset treasury platform — across SDE, product, infra, support, automated testing, and research.</li>
-          <li>Drove <strong>~1000% throughput improvement</strong> on deal processing (~5s → &lt;1s) via <strong>vectorised pricing & async non-blocking event driven architecture</strong>.</li>
+          <li>Drove <strong>~1000% throughput improvement</strong> on deal processing (~5s → &lt;1s) via <em>vectorised pricing</em> & <em>async non-blocking event driven architecture</em>.</li>
           <li>Led fixed-income back-office go-live handling <strong>portfolio value &gt; ₹75,000 Cr</strong>; implementations at ICICI HFC, IDFC FIRST Bank.</li>
           <li>Introduced dev-sec-ops into the delivery workflow; added non-anonymous LDAP, SSO, and 2FA support to the platform.</li>
           <li>Knowledge expert in <em>Accounting</em> and <em>Fixed-Income Markets</em>.</li>
@@ -531,7 +599,7 @@
       <h2>Stack</h2>
       <dl class="stack">
         <dt>Languages</dt>
-        <dd>Comfortable across most mainstream languages — primary stack is Python, Java, JavaScript, SQL; have shipped in C/C++, Bash, MATLAB, R, Go, Swift, and Arduino.</dd>
+        <dd>primary stack is Python, Java, JavaScript, SQL; have shipped in C/C++, Bash, MATLAB, R, Go, Swift, and Arduino.</dd>
         <dt>Web</dt>
         <dd>React, Express, Node, ExtJS, Django, Flask, Spring, Hibernate</dd>
         <dt>Data</dt>
@@ -553,6 +621,26 @@
       </div>
     </section>
   </main>
+
+  <script>
+    (function () {
+      var toggles = document.querySelectorAll('.js-view-toggle');
+      if (!toggles.length) return;
+      function sync(on) {
+        toggles.forEach(function (btn) {
+          btn.textContent = on ? '← Full view' : 'Short view →';
+          btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
+      }
+      toggles.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var on = document.body.classList.toggle('short-view');
+          sync(on);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      });
+    })();
+  </script>
 
   <script>
     if (location.hostname === 'nautatva.github.io') {
