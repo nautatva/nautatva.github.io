@@ -46,6 +46,7 @@
       --accent: #0d6b6b;
       --accent-hover: #0a5252;
       --card: #ffffff;
+      --highlight: rgba(13, 107, 107, 0.13);
     }
 
     @media (prefers-color-scheme: dark) {
@@ -57,7 +58,22 @@
         --accent: #5eead4;
         --accent-hover: #99f6e4;
         --card: #1c1917;
+        --highlight: rgba(94, 234, 212, 0.18);
       }
+    }
+
+    strong {
+      font-weight: 600;
+      color: var(--fg);
+      background: linear-gradient(transparent 62%, var(--highlight) 62%);
+      padding: 0 0.08em;
+      border-radius: 1px;
+    }
+
+    em {
+      font-style: normal;
+      font-weight: 600;
+      color: var(--accent);
     }
 
     * {
@@ -111,13 +127,95 @@
     .tagline {
       color: var(--muted);
       font-size: 1.05rem;
-      margin: 0 0 1.5rem;
+      margin: 0 0 1rem;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin: 0 0 1.75rem;
+      padding: 0;
+      list-style: none;
+    }
+
+    .chips li {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--muted);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.2rem 0.65rem;
+      white-space: nowrap;
+    }
+
+    .chips li.chip-iitb {
+      color: #1d4ed8;
+      background: #eff6ff;
+      border-color: #bfdbfe;
+    }
+
+    .chips li.chip-isro {
+      color: #c2410c;
+      background: #fff7ed;
+      border-color: #fed7aa;
+    }
+
+    .chips li.chip-arctic {
+      color: #0e7490;
+      background: #ecfeff;
+      border-color: #a5f3fc;
+    }
+
+    .chips li.chip-podar {
+      color: #6d28d9;
+      background: #f5f3ff;
+      border-color: #ddd6fe;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .chips li.chip-iitb {
+        color: #93c5fd;
+        background: rgba(59, 130, 246, 0.12);
+        border-color: rgba(59, 130, 246, 0.35);
+      }
+
+      .chips li.chip-isro {
+        color: #fdba74;
+        background: rgba(249, 115, 22, 0.12);
+        border-color: rgba(249, 115, 22, 0.35);
+      }
+
+      .chips li.chip-arctic {
+        color: #67e8f9;
+        background: rgba(34, 211, 238, 0.12);
+        border-color: rgba(34, 211, 238, 0.35);
+      }
+
+      .chips li.chip-podar {
+        color: #c4b5fd;
+        background: rgba(139, 92, 246, 0.14);
+        border-color: rgba(139, 92, 246, 0.4);
+      }
     }
 
     .lede {
       font-size: 1.05rem;
       line-height: 1.7;
-      margin: 0;
+      margin: 0 0 1rem;
+    }
+
+    .lede:last-of-type {
+      margin-bottom: 0;
+    }
+
+    .lede-coda {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      font-style: italic;
+      color: var(--muted);
+      margin: 0.5rem 0 0;
     }
 
     section {
@@ -256,7 +354,7 @@
     "alternateName": "Nautatva Navlakha",
     "jobTitle": "Founder, Navlakha Technologies",
     "url": "https://nautatva.github.io/",
-    "email": "support@navlakha.tech",
+    "email": "nautatva@navlakha.tech",
     "telephone": "+91-8275269688",
     "address": {
       "@type": "PostalAddress",
@@ -289,24 +387,29 @@
     <header>
       <h1>Nautatava Navlakha</h1>
       <p class="tagline">Founder, <a href="https://navlakha.tech">Navlakha Technologies</a> · Mumbai, India</p>
+      <ul class="chips">
+        <li class="chip-iitb">IIT Bombay '20</li>
+        <li class="chip-isro">ISRO-funded research</li>
+        <li class="chip-arctic">Arctic Code Vault Contributor</li>
+        <li class="chip-podar">Ex-podarite</li>
+      </ul>
       <p class="lede">
-        I build automation and IoT systems for industries that have implementation-heavy operational systems.
-        Previously co-founded <a href="https://kwikpic.in">Kwikpic</a> and spent ~4.75 years at
-        <a href="https://www.finmechanics.com">FinMechanics</a> across engineering, product, and project management roles.
+        A unique combination of <strong>founder‑level intuition for high‑volume, low‑latency, multi‑provider abstraction layered code</strong>, with a deep sense of business strategy and client interaction.
       </p>
-      <p>
-        IIT Bombay '20 — Civil Engineering, Minor in Computer Science.
+      <p class="lede-coda">
+        — I've written code in almost every mainstream programming language.
       </p>
     </header>
 
     <section id="now">
-      <h2>Now</h2>
+      <h2>XP</h2>
       <ul class="now-list">
-        <li>Running <a href="https://navlakha.tech">Navlakha Technologies</a> — Industry 4.0 systems, biometric-over-cloud, HR automation.</li>
-        <li>Founding Consultant, <strong>MonoEdge</strong> — LLM-based data analyst for manufacturing.</li>
-        <li>Technical Consultant, <strong>SRJ</strong> — IoT platform integrations with SCADA, PLCs, and HMIs.</li>
-        <li>Active member of IIT Bombay startup ecosystem. </li>
-        <li>Visiting Industrial Examiner — NSBT.</li>
+        <li>Founder, <a href="https://navlakha.tech">Navlakha Technologies</a> — IoT controls for implementation-heavy operational industries.</li>
+        <li>Founding Consultant, <a href="https://monoedge.in">MonoEdge</a> — LLM-based data analyst for manufacturing.</li>
+        <li>Technical Consultant, <a href="https://srjsteel.in">SRJ</a> — IoT platform integrations with SCADA, PLCs, and HMIs.</li>
+        <li>Visiting Industrial Examiner — <a href="https://nsbtmgmu.edu.in">NSBT</a>.</li>
+        <li>Previously co-founded <a href="https://kwikpic.in">Kwikpic</a> and spent ~4.75 years at
+        <a href="https://www.finmechanics.com">FinMechanics</a> across engineering, product, and project management roles.</li>
       </ul>
     </section>
 
@@ -320,11 +423,11 @@
         </div>
         <p class="item-role">Founder</p>
         <ul class="item-body">
-          <li>Operates ~40M HR transactions in production across client deployments.</li>
-          <li>One of four companies globally to enable biometric aggregation over the cloud.</li>
-          <li>Self-engineered RS232-over-network bridges (stream / socket) to lift legacy industrial gear into modern IoT pipelines.</li>
+          <li>Operates <strong>~40M HR transactions in production</strong> across multi-tenant setup.</li>
+          <li><strong>One of only four companies globally</strong> to enable biometric aggregation over the cloud.</li>
+          <li>Self-engineered <strong>RS232-over-network bridges</strong> (stream / socket) to lift legacy industrial gear into modern IoT pipelines.</li>
           <li>Removed owner dependency in client orgs by structuring teams that no longer need the founder in the loop — a recurring product win.</li>
-          <li>Built internal engineering scaffolding — ESLint configs, CI/CD, coverage gates, code-duplication detection, E2E + integration test harnesses — and <em>NBNext Data Grid</em>, an in-house AG-Grid replacement tuned for the company's workloads.</li>
+          <li>Built internal engineering scaffolding — ESLint configs, CI/CD, coverage gates, code-duplication detection, E2E + integration test harnesses — and <em>NBNext Data Grid</em>, an <strong>in-house AG-Grid replacement</strong> tuned for the company's workloads.</li>
         </ul>
       </div>
 
@@ -335,13 +438,13 @@
         </div>
         <p class="item-role">SDE → Stream Lead → Project Manager → Technical Product Manager</p>
         <ul class="item-body">
+          <li><strong>Closed sales</strong> at <em>NSE</em>, <em>Jio Financial Services</em>, and <em>Poonawalla Fincorp</em>.</li>
+          <li><strong>Youngest member</strong> of the <em>Global Production Support team</em> & <em>Infra Management team</em>.</li>
           <li>Worked on FM-Converge, a cross-asset treasury platform — across SDE, product, infra, support, automated testing, and research.</li>
-          <li>Knowledge expert in <strong>Accounting</strong> and <strong>Fixed-Income Markets</strong>.</li>
-          <li>Drove a ~1000% throughput improvement on deal processing (~5s → &lt;1s) via vectorised pricing and async non-blocking event driven architecture.</li>
-          <li>Led fixed-income back-office go-live handling portfolio value &gt; ₹75,000 Cr; implementations at Poonawalla Fincorp, Jio Financial Services, ICICI HFC, IDFC FIRST Bank.</li>
-          <li>Closed sales at <strong>NSE</strong>, <strong>Jio Financial Services</strong>, and <strong>Poonawalla Fincorp</strong>.</li>
-          <li>Youngest member of the Global Production Support team and the Infra Management team.</li>
-          <li>Introduced dev-sec-ops into the delivery workflow; added LDAP (non-anonymous), SSO, and 2FA support to the platform.</li>
+          <li>Drove <strong>~1000% throughput improvement</strong> on deal processing (~5s → &lt;1s) via <strong>vectorised pricing & async non-blocking event driven architecture</strong>.</li>
+          <li>Led fixed-income back-office go-live handling <strong>portfolio value &gt; ₹75,000 Cr</strong>; implementations at ICICI HFC, IDFC FIRST Bank.</li>
+          <li>Introduced dev-sec-ops into the delivery workflow; added non-anonymous LDAP, SSO, and 2FA support to the platform.</li>
+          <li>Knowledge expert in <em>Accounting</em> and <em>Fixed-Income Markets</em>.</li>
         </ul>
       </div>
 
@@ -352,9 +455,9 @@
         </div>
         <p class="item-role">Technical Co-founder</p>
         <ul class="item-body">
-          <li>Took the product from PoC to a production system now serving 65+ countries and ~200M photos/year.</li>
-          <li>Shipped (2019) secure facial-data mapping under low-light conditions; built a single-shot face-recognition model trained on 2M+ faces.</li>
-          <li>Cut end-to-end processing time to ~1/10th via event-driven architecture, parallel compute, selective caching, and multi-threading.</li>
+          <li>Took the product from PoC to a production system now serving <strong>65+ countries and ~200M photos/year</strong>.</li>
+          <li>Shipped (2019) secure facial-data mapping under low-light conditions; built a single-shot face-recognition model trained on <strong>2M+ faces</strong>.</li>
+          <li>Cut end-to-end processing time to <strong>~1/10th</strong> via event-driven architecture, parallel compute, selective caching, and multi-threading.</li>
         </ul>
       </div>
 
@@ -365,9 +468,9 @@
         </div>
         <p class="item-role"><a href="https://github.com/iitb-gymkhana/">iitb-gymkhana</a> · Institute System Administrator, Students' Gymkhana</p>
         <ul class="item-body">
-          <li>Migrated the institute's identity infrastructure (~23k users) from LDAP to OAuth 2.0 + OIDC — still the core login mechanism for WiFi, Moodle, ASC, Webmail.</li>
+          <li>Migrated the institute's identity infrastructure (<strong>~23k users</strong>) from LDAP to <strong>OAuth 2.0 + OIDC servers</strong> — still the core login mechanism for WiFi, Moodle, ASC, Webmail.</li>
           <li>Built auth wrappers so other student developers could drop new SSO logins into their apps without touching the protocol layer.</li>
-          <li>Brought server resource usage on legacy boxes from ~60% down to ~3%.</li>
+          <li>Brought server resource usage on legacy boxes from <strong>~60% down to ~3%</strong>.</li>
           <li>Built a cryptographically-signed document portal with traceability + verification (AMS) during COVID-19 to digitise decade-old paper workflows.</li>
         </ul>
       </div>
@@ -382,7 +485,7 @@
         </div>
         <ul class="item-body">
           <li>GitHub <em>Arctic Code Vault Contributor</em> — Electron, Caprine, Frappe.</li>
-          <li>Shipped spell-check for <a href="https://github.com/sindresorhus/electron-context-menu">electron-context-menu</a> (4,000+ dependent repos) — long-standing community request, funded via issuehunt.</li>
+          <li>Shipped spell-check for <a href="https://github.com/sindresorhus/electron-context-menu">electron-context-menu</a> (<strong>4,000+ dependent repos</strong>) — long-standing community request, funded via issuehunt.</li>
           <li>Profile: <a href="https://github.com/nautatva">github.com/nautatva</a> · <a href="https://stackoverflow.com/users/11705040/nautatava-navlakha">Stack Overflow</a></li>
         </ul>
       </div>
@@ -395,7 +498,7 @@
         <p class="item-role">ISRO-funded · advised by Prof. Gopal Patil</p>
         <ul class="item-body">
           <li>Super-resolution + sparse-matrix CNNs + continuity algorithms for narrow-road detection on mid-resolution imagery.</li>
-          <li>90% accuracy on two-lane roads vs. 73% prior state-of-the-art. Archive: <a href="./btp/">/btp</a>.</li>
+          <li><strong>90% accuracy</strong> on two-lane roads vs. 73% prior state-of-the-art. Archive: <a href="./btp/">/btp</a>.</li>
         </ul>
       </div>
 
@@ -405,7 +508,7 @@
           <span class="item-date">2018 — 2019</span>
         </div>
         <ul class="item-body">
-          <li>Lighthouse 100/100 on SEO, performance, and best practices across every page. Y-o-Y user bump of 106.3%.</li>
+          <li><strong>Lighthouse 100/100</strong> on SEO, performance, and best practices across every page. Y-o-Y user bump of <strong>106.3%</strong>.</li>
           <li>Repo: <a href="https://github.com/nautatva/NSS_IIT_Bombay">nautatva/NSS_IIT_Bombay</a></li>
         </ul>
       </div>
@@ -415,7 +518,7 @@
           <span class="item-title">Earlier projects</span>
         </div>
         <ul class="item-body">
-          <li><a href="https://github.com/IamAbhiKaushik/Techfest_App">Techfest Android app</a> — full ideation, design, code; 4.7/5 on Play Store.</li>
+          <li><a href="https://github.com/IamAbhiKaushik/Techfest_App">Techfest Android app</a> — full ideation, design, code; <strong>4.7/5 on Play Store</strong>.</li>
           <li><a href="https://gist.github.com/nautatva/d02da67e1d2b6bf7d0c2c66e989b758a">Internship-blog scraper</a> — BeautifulSoup analysis of IIT-B internship trends.</li>
           <li><a href="https://www.behance.net/gallery/42959725/Hostel-7-Branding">Hostel 7 branding</a> — 2nd prize at Freshieza; nominated as the official hostel logo.</li>
         </ul>
@@ -441,16 +544,12 @@
     <section id="contact">
       <h2>Contact</h2>
       <div class="contact">
-        <a href="mailto:support@navlakha.tech">support@navlakha.tech</a>
+        <a href="mailto:nautatva@navlakha.tech">nautatva@navlakha.tech</a>
         <a href="https://www.linkedin.com/in/nautatva/">LinkedIn</a>
         <a href="https://github.com/nautatva">GitHub</a>
         <a href="https://navlakha.tech">navlakha.tech</a>
       </div>
     </section>
-
-    <footer>
-      <p>This site is intentionally plain. The current source of truth is <a href="https://www.linkedin.com/in/nautatva/">LinkedIn</a> and <a href="https://navlakha.tech">navlakha.tech</a>.</p>
-    </footer>
   </main>
 
   <script>
