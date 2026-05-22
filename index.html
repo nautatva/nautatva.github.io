@@ -360,14 +360,14 @@
       transform: translateY(-1px);
     }
 
-    body.short-view #now,
-    body.short-view #work,
-    body.short-view #selected,
-    body.short-view header .view-toggle {
+    body.highlights-view #now,
+    body.highlights-view #work,
+    body.highlights-view #selected,
+    body.highlights-view header .view-toggle {
       display: none;
     }
 
-    body:not(.short-view) #short {
+    body:not(.highlights-view) #highlights {
       display: none;
     }
 
@@ -439,7 +439,14 @@
   <script>
     (function () {
       var view = new URLSearchParams(window.location.search).get('view');
-      if (view !== 'full') document.body.classList.add('short-view');
+      if (view !== 'full') {
+        document.body.classList.add('highlights-view');
+        if (view !== 'highlights') {
+          var url = new URL(window.location.href);
+          url.searchParams.set('view', 'highlights');
+          history.replaceState(null, '', url);
+        }
+      }
     })();
   </script>
   <main>
@@ -461,7 +468,7 @@
       <button class="view-toggle js-view-toggle" type="button" aria-pressed="true">← Full view</button>
     </header>
 
-    <section id="short">
+    <section id="highlights">
       <h2>Highlights</h2>
       <ul class="now-list">
         <li>Founder, <a href="https://navlakha.tech">Navlakha Technologies</a> — <strong>~40M HR transactions</strong> across <em>multi-tenant production</em>; <strong>one of only four companies globally</strong> enabling biometric aggregation over the cloud.</li>
@@ -660,17 +667,17 @@
       if (!toggles.length) return;
       function sync(on) {
         toggles.forEach(function (btn) {
-          btn.textContent = on ? '← Full view' : 'Short view →';
+          btn.textContent = on ? '← Full view' : 'Highlights view →';
           btn.setAttribute('aria-pressed', on ? 'true' : 'false');
         });
       }
-      sync(document.body.classList.contains('short-view'));
+      sync(document.body.classList.contains('highlights-view'));
       toggles.forEach(function (btn) {
         btn.addEventListener('click', function () {
-          var on = document.body.classList.toggle('short-view');
+          var on = document.body.classList.toggle('highlights-view');
           sync(on);
           var url = new URL(window.location.href);
-          url.searchParams.set('view', on ? 'short' : 'full');
+          url.searchParams.set('view', on ? 'highlights' : 'full');
           history.replaceState(null, '', url);
           window.scrollTo({ top: 0, behavior: 'smooth' });
         });
