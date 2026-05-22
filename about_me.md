@@ -36,7 +36,6 @@ Tech innovator, founder, and Industry 4.0 builder based in **Mumbai, Maharashtra
 - **Founder** — Kwikpic — global tech platform used in **65+ countries**, managing over **200 million photos every year**.
 - **Founding Consultant** — MonoEdge — **LLM-based data analyst for big data**. An AI that autonomously discovers anomalies, patterns, and opportunities across manufacturing data *before they become problems*.
 - **Technical Consultant** — SRJ — scope: IoT platform integrations with **SCADA, PLCs, and HMIs**.
-- **Mentor** — IIT Bombay Startup Society (E-Cell).
 - **Visiting Industrial Examiner** — NSBT.
 
 ### Domain expertise
@@ -322,7 +321,7 @@ Worked under **Prof. Gopal Patil** on an **ISRO-funded** project.
 - Co-organised **"CURED"** — PAN India social initiative spreading diabetes awareness across **50+ cities**.
 - Completed **100+ hours** of community service in NGOs as an NSS volunteer.
 - Built a **just-in-time inventory system** that cut logistics costs by **50%**, leading a team of 25 field officers running on-ground social initiatives.
-- Mentor at IIT Bombay's startup society; visiting industrial examiner at NSBT.
+- Visiting industrial examiner at NSBT.
 
 ---
 

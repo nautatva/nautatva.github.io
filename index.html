@@ -436,6 +436,13 @@
 </head>
 
 <body class="short-view">
+  <script>
+    (function () {
+      var view = new URLSearchParams(window.location.search).get('view');
+      if (view === 'full') document.body.classList.remove('short-view');
+      else if (view === 'short') document.body.classList.add('short-view');
+    })();
+  </script>
   <main>
     <header>
       <h1>Nautatava Navlakha</h1>
@@ -459,8 +466,9 @@
       <h2>Highlights</h2>
       <ul class="now-list">
         <li>Founder, <a href="https://navlakha.tech">Navlakha Technologies</a> — <strong>~40M HR transactions</strong> across <em>multi-tenant production</em>; <strong>one of only four companies globally</strong> enabling biometric aggregation over the cloud.</li>
-        <li>Co-founded <a href="https://kwikpic.in">Kwikpic</a> — now serves <strong>65+ countries and ~200M photos/year</strong>; single-shot <em>face embeddings + similarity search</em> at <strong>2M+ face</strong> scale.</li>
+        <li>Built end-to-end engineering scaffolding frameworks — <em>CI/CD</em>, <em>coverage gates</em>, code-duplication detection, E2E + integration test harnesses for faster, quality release.</li>
         <li>Founding Consultant, <a href="https://monoedge.in">MonoEdge</a> — <em>RAG + LangChain</em> data analyst for manufacturing.</li>
+        <li>Co-founded <a href="https://kwikpic.in">Kwikpic</a> — now serves <strong>65+ countries and ~200M photos/year</strong>; single-shot <em>face embeddings + similarity search</em> at <strong>2M+ face</strong> scale.</li>
         <li><strong>~1000% throughput improvement</strong> on deal processing at <a href="https://www.finmechanics.com">FinMechanics</a> via <em>vectorised pricing</em> & <em>async event-driven architecture</em>.</li>
         <li>closed sales at <em>NSE</em>, <em>Jio Financial Services</em>, <em>Poonawalla Fincorp</em>; Led fixed-income back-office go-live handling <strong>portfolio value &gt; ₹75,000 Cr</strong>.</li>
         <li><strong>Youngest member</strong> of <em>FinMechanics' Global Production Support</em> and <em>Infra Management team </em>.</li>
@@ -468,7 +476,6 @@
         <li>Shipped spell-check for <a href="https://github.com/sindresorhus/electron-context-menu">electron-context-menu</a> (<strong>4,000+ dependent repos</strong>); GitHub <em>Arctic Code Vault Contributor</em> — Electron, Caprine, Frappe.</li>
         <li>ISRO-funded B.Tech thesis — <strong>90% accuracy</strong> on two-lane road detection from satellite imagery vs. 73% prior state-of-the-art.</li>
         <li>Worked across engineering, product, sales, implementations, infrastructure, quant as well as project management.</li>
-        <li>Built end-to-end engineering scaffolding at Navlakha — <em>CI/CD</em>, <em>Docker</em>, coverage gates, code-duplication detection, E2E + integration test harnesses for faster, quality release.</li>
       </ul>
       <button class="view-toggle view-toggle-primary js-view-toggle" type="button" aria-pressed="true">← Full view</button>
     </section>
@@ -546,6 +553,20 @@
           <li>Built a cryptographically-signed document portal with traceability + verification (AMS) during COVID-19 to digitise decade-old paper workflows.</li>
         </ul>
       </div>
+
+      <div class="item">
+        <div class="item-head">
+          <span class="item-title">Skillate Industries</span>
+          <span class="item-date">2018</span>
+        </div>
+        <p class="item-role">MERN Stack Developer · Summer Internship</p>
+        <ul class="item-body">
+          <li>Built an AI-driven <strong>job-matching platform</strong> for enterprises — single-page progressive web app in <em>React</em> with dynamic API data.</li>
+          <li><em>Server-side rendering + service workers</em> — faster loads, offline job-application support.</li>
+          <li>Hardened the career-page pipeline: applications reliably reached S3, with MongoDB failover when MySQL was unavailable.</li>
+          <li>Built the landing page from scratch in <em>Express + Jade templating</em>, sprite-optimised; integrated Google Analytics, Google Jobs, SEO.</li>
+        </ul>
+      </div>
     </section>
 
     <section id="selected">
@@ -592,9 +613,28 @@
         <ul class="item-body">
           <li><a href="https://github.com/IamAbhiKaushik/Techfest_App">Techfest Android app</a> — full ideation, design, code; <strong>4.7/5 on Play Store</strong>.</li>
           <li><a href="https://gist.github.com/nautatva/d02da67e1d2b6bf7d0c2c66e989b758a">Internship-blog scraper</a> — BeautifulSoup analysis of IIT-B internship trends.</li>
-          <li><a href="https://www.behance.net/gallery/42959725/Hostel-7-Branding">Hostel 7 branding</a> — 2nd prize at Freshieza; nominated as the official hostel logo.</li>
+          <!-- <li><a href="https://www.behance.net/gallery/42959725/Hostel-7-Branding">Hostel 7 branding</a> — 2nd prize at Freshieza; nominated as the official hostel logo.</li> -->
         </ul>
       </div>
+    </section>
+
+    <section id="certifications">
+      <h2>Certifications</h2>
+      <ul class="now-list">
+        <li><em>Google Project Management Specialization</em> — Google (Feb 2024).</li>
+        <li><em>Natural Language Processing in Trading</em> — QuantInsti (Jan 2021).</li>
+      </ul>
+    </section>
+
+    <section id="awards">
+      <h2>Awards</h2>
+      <ul class="now-list">
+        <li><em>GitHub Arctic Code Vault Contributor</em> — Electron, Caprine, Frappe.</li>
+        <li><em>issuehunt cash prize</em> — spell-check for electron-context-menu (<strong>4,000+ dependent repos</strong>).</li>
+        <li><em>Institute Organisational Commendation</em> — IIT Bombay (2020), for performance as Institute System Administrator.</li>
+        <li><em>Pre-Placement Offer</em> — FinMechanics India, off the 2019 summer internship.</li>
+        <!-- <li><em>2nd prize, Freshieza</em> — Hostel 7 branding, IIT Bombay.</li> -->
+      </ul>
     </section>
 
     <section id="stack">
@@ -634,10 +674,14 @@
           btn.setAttribute('aria-pressed', on ? 'true' : 'false');
         });
       }
+      sync(document.body.classList.contains('short-view'));
       toggles.forEach(function (btn) {
         btn.addEventListener('click', function () {
           var on = document.body.classList.toggle('short-view');
           sync(on);
+          var url = new URL(window.location.href);
+          url.searchParams.set('view', on ? 'short' : 'full');
+          history.replaceState(null, '', url);
           window.scrollTo({ top: 0, behavior: 'smooth' });
         });
       });
