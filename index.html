@@ -435,12 +435,11 @@
   </script>
 </head>
 
-<body class="short-view">
+<body>
   <script>
     (function () {
       var view = new URLSearchParams(window.location.search).get('view');
-      if (view === 'full') document.body.classList.remove('short-view');
-      else if (view === 'short') document.body.classList.add('short-view');
+      if (view !== 'full') document.body.classList.add('short-view');
     })();
   </script>
   <main>
