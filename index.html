@@ -219,6 +219,62 @@
       margin: 0.5rem 0 0;
     }
 
+    .lede-quote {
+      font-size: 1.2rem;
+      line-height: 1.5;
+      font-weight: 600;
+      color: var(--fg);
+      border-left: 3px solid var(--accent);
+      padding: 0.15rem 0 0.15rem 0.95rem;
+      margin: 0 0 1.1rem;
+    }
+
+    .lede-points {
+      list-style: none;
+      margin: 0 0 0.5rem;
+      padding: 1rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      background: var(--highlight);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 0.5rem 0.5rem 0;
+    }
+
+    .lede-points li {
+      position: relative;
+      padding-left: 1.85rem;
+      font-size: 1rem;
+      line-height: 1.55;
+      color: var(--fg);
+    }
+
+    .lede-points li::before {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1.4rem;
+      text-align: left;
+      font-weight: 700;
+    }
+
+    .lede-points li:nth-child(odd)::before {
+      content: "✅";
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+
+    .lede-points li:nth-child(even)::before {
+      content: "→";
+      color: var(--accent);
+      font-size: 1.15rem;
+      line-height: 1.35;
+    }
+
+    .stack-intro {
+      margin-bottom: 1.5rem;
+    }
+
     section {
       margin-top: 3rem;
       padding-top: 3rem;
@@ -329,7 +385,8 @@
       background: var(--card);
       padding: 0.25rem;
       margin-top: 1.25rem;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
+      max-width: 100%;
     }
 
     .view-nav button {
@@ -513,6 +570,31 @@
       padding: 0.45rem 0.9rem;
     }
 
+    /* Sided mode: shrink every tier and cap the box width to the gutter so
+       cards don't bleed into the body or off-screen. Long texts wrap onto a
+       second line instead of pushing the card wider. */
+    body.what-i-do-sided .sticker {
+      white-space: normal;
+      text-align: center;
+      max-width: calc(50vw - 360px - 16px);
+      line-height: 1.25;
+    }
+
+    body.what-i-do-sided .sticker[data-size="high"] {
+      font-size: 0.88rem;
+      padding: 0.4rem 0.75rem;
+    }
+
+    body.what-i-do-sided .sticker[data-size="med"] {
+      font-size: 0.78rem;
+      padding: 0.35rem 0.65rem;
+    }
+
+    body.what-i-do-sided .sticker[data-size="low"] {
+      font-size: 0.7rem;
+      padding: 0.3rem 0.6rem;
+    }
+
     .sticker-1 { color: #c2410c; background: #fff7ed; border-color: #fed7aa; }
     .sticker-2 { color: #1d4ed8; background: #eff6ff; border-color: #bfdbfe; }
     .sticker-3 { color: #6d28d9; background: #f5f3ff; border-color: #ddd6fe; }
@@ -563,6 +645,12 @@
 
       body.what-i-do-view .view-nav {
         top: 0.6rem;
+      }
+
+      .view-nav button {
+        font-size: 0.72rem;
+        padding: 0.35rem 0.7rem;
+        letter-spacing: 0.02em;
       }
     }
   </style>
@@ -656,19 +744,18 @@
   <main>
     <header>
       <h1>Nautatava Navlakha</h1>
-      <p class="tagline">Founder, <a href="https://navlakha.tech">Navlakha Technologies</a> · Pune, India</p>
+      <!-- <p class="tagline">Founder, <a href="https://navlakha.tech">Navlakha Technologies</a></p> -->
       <ul class="chips">
         <li class="chip-iitb">IIT Bombay '20</li>
         <li class="chip-isro">ISRO-funded research</li>
         <li class="chip-arctic">Arctic Code Vault Contributor</li>
         <li class="chip-podar">Ex-Podar</li>
       </ul>
-      <p class="lede">
-        Over 10 years in engineering and 4 years in product, combining deep expertise in <strong>high‑volume, low‑latency, multi‑provider abstraction layered code</strong> with strong business intuition and client leadership.
-      </p>
-      <p class="lede-coda">
-        — I've written code in almost every mainstream programming language.
-      </p>
+      <p class="lede-quote">“I help companies fix and scale messy real-world systems.”</p>
+      <ul class="lede-points">
+        <li>Usually called in when systems start breaking under scale — teams need things to actually work, not just look good on paper.</li>
+        <li>I fix delivery, reliability, and architecture so products can run in production.</li>
+      </ul>
       <nav class="view-nav" aria-label="View mode">
         <button type="button" class="js-view-btn" data-view="what_i_do">What I do</button>
         <button type="button" class="js-view-btn" data-view="highlights">Highlights</button>
@@ -689,7 +776,8 @@
         <li>Migrated IIT Bombay's identity infrastructure (<strong>~23k users</strong>) to <strong>OAuth 2.0 + OIDC</strong> — still the core login for WiFi, Moodle, ASC, Webmail.</li>
         <li>Shipped spell-check for <a href="https://github.com/sindresorhus/electron-context-menu">electron-context-menu</a> (<strong>4,000+ dependent repos</strong>); GitHub <em>Arctic Code Vault Contributor</em> — Electron, Caprine, Frappe.</li>
         <li>ISRO-funded B.Tech thesis — <strong>90% accuracy</strong> on two-lane road detection from satellite imagery vs. 73% prior state-of-the-art.</li>
-        <li>Worked across engineering, product, sales, implementations, infrastructure, quant as well as project management.</li>
+        <li>I combine deep expertise in <strong>high-volume, low-latency, multi-provider abstraction layered code</strong> with strong business intuition and client leadership.</li>
+        <li>Worked across engineering, product, sales, implementations, infrastructure, quant and project management.</li>
       </ul>
     </section>
 
@@ -843,6 +931,10 @@
 
     <section id="stack">
       <h2>Stack</h2>
+      <ul class="lede-points stack-intro">
+        <li>I help companies untangle broken or scaling systems so they can ship faster without things falling apart in production.</li>
+        <li>I work across engineering, infrastructure, and operations to make systems actually work in the real world.</li>
+      </ul>
       <dl class="stack">
         <dt>Languages</dt>
         <dd>primary stack is Python, Java, JavaScript, SQL; have shipped in C/C++, Bash, MATLAB, R, Go, Swift, and Arduino.</dd>
@@ -855,10 +947,17 @@
         <dt>Hardware / IoT</dt>
         <dd>SCADA, PLC, HMI; RS232 → network bridging; vendor SDK integration</dd>
       </dl>
+      <p class="lede-coda">
+        — I've written code in almost every mainstream programming language.
+      </p>
     </section>
 
     <section id="contact">
       <h2>Contact</h2>
+      <ul class="lede-points">
+        <li>I work with teams that are stuck in complex, production-heavy systems and help them make things run reliably, scale better, and ship faster.</li>
+        <li>My focus is fixing what breaks in real deployments — across software, infrastructure, and operations.</li>
+      </ul>
       <div class="contact">
         <a href="mailto:nautatva@navlakha.tech">nautatva@navlakha.tech</a>
         <a href="https://www.linkedin.com/in/nautatva/">LinkedIn</a>
