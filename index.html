@@ -1560,12 +1560,8 @@
        adapters are intentionally omitted (this is a single-page personal
        site, not the multi-product NT funnel). -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/thenb-in/chatbox@main/src/chatbox.css">
-  <!-- Country list + searchable dial-code dropdown live in the chatbox repo
-       as sibling modules. Load BEFORE chatbox.js so the adapters are on
-       window when Chatbox.init() runs. ip-location.js will skip its IP fetch
-       gracefully if no NTVisitorProfile is on the page. -->
-  <script defer src="https://cdn.jsdelivr.net/gh/thenb-in/chatbox@main/src/ip-location.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/gh/thenb-in/chatbox@main/src/dial-picker.js"></script>
+  <!-- chatbox.js bundles the country dial-picker, IP/geo lookup, and a
+       country-aware phone validator — no sibling script tags needed. -->
   <script defer src="https://cdn.jsdelivr.net/gh/thenb-in/chatbox@main/src/chatbox.js"></script>
   <div id="chatbox-root"></div>
   <script>
@@ -1683,10 +1679,7 @@
             recipients: ['nautatva@navlakha.tech'],
             subject:    subjectBuilder,
             body:       bodyBuilder
-          },
-
-          ipLocation: window.NTIPLocation || null,
-          dialPicker: window.NTDialPicker || null
+          }
         });
 
         armAutoExpand();
