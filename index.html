@@ -366,11 +366,11 @@
       display: none;
     }
 
-    body.what-do-i-do-view {
+    body.what-i-do-view {
       overflow: hidden;
     }
 
-    body.what-do-i-do-view .view-nav {
+    body.what-i-do-view .view-nav {
       position: fixed;
       top: 1.1rem;
       left: 50%;
@@ -384,20 +384,20 @@
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
     }
 
-    body.what-do-i-do-view .view-nav button {
+    body.what-i-do-view .view-nav button {
       color: rgba(255, 255, 255, 0.78);
     }
 
-    body.what-do-i-do-view .view-nav button[aria-pressed="true"] {
+    body.what-i-do-view .view-nav button[aria-pressed="true"] {
       color: #0a0a0a;
       background: #f5f5f4;
     }
 
-    body.what-do-i-do-view .view-nav button:not([aria-pressed="true"]):hover {
+    body.what-i-do-view .view-nav button:not([aria-pressed="true"]):hover {
       color: #ffffff;
     }
 
-    .what-do-i-do-overlay {
+    .what-i-do-overlay {
       position: fixed;
       inset: 0;
       background: rgba(10, 10, 12, 0.86);
@@ -409,10 +409,57 @@
       transition: opacity 0.55s ease;
     }
 
-    body.what-do-i-do-view .what-do-i-do-overlay {
+    body.what-i-do-view .what-i-do-overlay {
       opacity: 1;
       pointer-events: auto;
       cursor: pointer;
+    }
+
+    /* "Sided" stage: stickers are parked in the side gutters and the
+       underlying content is fully readable, so the dim layer fades away and
+       lets clicks through. The stage drops out of fixed positioning so the
+       sticker columns scroll along with the page. */
+    body.what-i-do-view.what-i-do-sided {
+      overflow: auto;
+    }
+
+    body.what-i-do-view.what-i-do-sided .what-i-do-overlay {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    body.what-i-do-view.what-i-do-sided .sticker-stage {
+      position: absolute;
+      inset: 0 0 auto 0;
+      overflow: visible;
+    }
+
+    /* In sided mode the page is fully readable, so the nav switcher goes back
+       to its normal place inside the header instead of floating at the top. */
+    body.what-i-do-view.what-i-do-sided .view-nav {
+      position: static;
+      top: auto;
+      left: auto;
+      transform: none;
+      z-index: auto;
+      background: var(--card);
+      border-color: var(--border);
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+      box-shadow: none;
+    }
+
+    body.what-i-do-view.what-i-do-sided .view-nav button {
+      color: var(--muted);
+    }
+
+    body.what-i-do-view.what-i-do-sided .view-nav button[aria-pressed="true"] {
+      color: var(--bg);
+      background: var(--accent);
+    }
+
+    body.what-i-do-view.what-i-do-sided .view-nav button:not([aria-pressed="true"]):hover {
+      color: var(--accent-hover);
     }
 
     .sticker-stage {
@@ -421,6 +468,13 @@
       z-index: 60;
       pointer-events: none;
       overflow: hidden;
+    }
+
+    /* While snapping to the "all revealed" state, disable the per-sticker
+       opacity/transform transition so they appear instantly instead of all
+       popping in at once. */
+    .sticker-stage.snap .sticker {
+      transition: none;
     }
 
     .sticker {
@@ -434,7 +488,7 @@
       white-space: nowrap;
       opacity: 0;
       transform: translate(-50%, -50%) scale(0.25) rotate(0deg);
-      transition: opacity 0.45s ease, transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: opacity 0.45s ease, transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1), left 0.55s cubic-bezier(0.4, 0, 0.2, 1), top 0.55s cubic-bezier(0.4, 0, 0.2, 1);
       will-change: opacity, transform;
       pointer-events: none;
     }
@@ -507,7 +561,7 @@
         padding: 0.32rem 0.7rem;
       }
 
-      body.what-do-i-do-view .view-nav {
+      body.what-i-do-view .view-nav {
         top: 0.6rem;
       }
     }
@@ -554,21 +608,21 @@
     (function () {
       var view = new URLSearchParams(window.location.search).get('view');
       // Backwards-compat for the older URL names.
-      if (view === 'what_do_i_do') view = 'what_do_i_do';
+      if (view === 'what_i_do') view = 'what_i_do';
       if (view === 'full') view = 'details';
-      var valid = ['what_do_i_do', 'highlights', 'details'];
+      var valid = ['what_i_do', 'highlights', 'details'];
       if (valid.indexOf(view) === -1) {
-        view = 'what_do_i_do';
+        view = 'what_i_do';
         var url = new URL(window.location.href);
         url.searchParams.set('view', view);
         history.replaceState(null, '', url);
       }
-      // "what_do_i_do" overlays on a highlights backdrop by default.
-      if (view === 'highlights' || view === 'what_do_i_do') document.body.classList.add('highlights-view');
-      if (view === 'what_do_i_do') document.body.classList.add('what-do-i-do-view');
+      // "what_i_do" overlays on a highlights backdrop by default.
+      if (view === 'highlights' || view === 'what_i_do') document.body.classList.add('highlights-view');
+      if (view === 'what_i_do') document.body.classList.add('what-i-do-view');
     })();
   </script>
-  <div class="what-do-i-do-overlay" aria-hidden="true"></div>
+  <div class="what-i-do-overlay" aria-hidden="true"></div>
   <div class="sticker-stage" id="sticker-stage" aria-hidden="true">
     <span class="sticker sticker-1" data-size="high">Remove founder bottlenecks</span>
     <span class="sticker sticker-2" data-size="high">Own end-to-end delivery</span>
@@ -591,7 +645,7 @@
     <span class="sticker sticker-1" data-size="low">Balance speed and stability</span>
     <span class="sticker sticker-2" data-size="low">Pragmatic architecture</span>
     <span class="sticker sticker-3" data-size="high">Close deals AND ship code</span>
-    <span class="sticker sticker-4" data-size="high">Senior judgement, hands-on execution</span>
+    <span class="sticker sticker-4" data-size="high">hands-on execution</span>  <!-- Senior judgement -->
     <span class="sticker sticker-5" data-size="med">Force multiplier across teams</span>
     <span class="sticker sticker-6" data-size="med">See product, not just code</span>
     <span class="sticker sticker-1" data-size="med">Decide under ambiguity</span>
@@ -616,7 +670,7 @@
         — I've written code in almost every mainstream programming language.
       </p>
       <nav class="view-nav" aria-label="View mode">
-        <button type="button" class="js-view-btn" data-view="what_do_i_do">What I do</button>
+        <button type="button" class="js-view-btn" data-view="what_i_do">What I do</button>
         <button type="button" class="js-view-btn" data-view="highlights">Highlights</button>
         <button type="button" class="js-view-btn" data-view="details">Details</button>
       </nav>
@@ -818,14 +872,15 @@
     (function () {
       var btns = document.querySelectorAll('.js-view-btn');
       var stage = document.getElementById('sticker-stage');
-      var overlay = document.querySelector('.what-do-i-do-overlay');
+      var overlay = document.querySelector('.what-i-do-overlay');
       if (!btns.length || !stage || !overlay) return;
       var stickers = stage.querySelectorAll('.sticker');
       var revealTimers = [];
       var currentOrder = null; // last reveal order, reused on resize
+      var clickStage = 0; // 0 = animating, 1 = all revealed in place, 2 = parked in side gutters
 
       function foregroundView() {
-        if (document.body.classList.contains('what-do-i-do-view')) return 'what_do_i_do';
+        if (document.body.classList.contains('what-i-do-view')) return 'what_i_do';
         if (document.body.classList.contains('highlights-view')) return 'highlights';
         return 'details';
       }
@@ -959,6 +1014,8 @@
 
       function showStickers() {
         clearRevealTimers();
+        clickStage = 0;
+        document.body.classList.remove('what-i-do-sided');
         stickers.forEach(function (s) {
           s.classList.remove('visible');
           s.style.zIndex = '';
@@ -995,14 +1052,127 @@
         stickers.forEach(function (s) { s.classList.remove('visible'); });
       }
 
+      // First click during the animation: cancel pending reveals and snap every
+      // remaining sticker into its final visible state, no per-sticker pop-in.
+      function revealAllNow() {
+        clearRevealTimers();
+        if (!currentOrder) return;
+        // Disable the .visible transition for this frame so still-hidden stickers
+        // appear instantly instead of all popping at once.
+        stage.classList.add('snap');
+        // Force a reflow so the class is observed before we toggle .visible.
+        void stage.offsetWidth;
+        var maxZ = 0;
+        for (var k = 0; k < stickers.length; k++) {
+          var z = parseInt(stickers[k].style.zIndex || '0', 10);
+          if (z > maxZ) maxZ = z;
+        }
+        currentOrder.forEach(function (i) {
+          if (!stickers[i].classList.contains('visible')) {
+            maxZ += 1;
+            stickers[i].style.zIndex = String(maxZ);
+            stickers[i].classList.add('visible');
+          }
+        });
+        // Restore transitions on the next frame so subsequent moves animate.
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () { stage.classList.remove('snap'); });
+        });
+      }
+
+      // Second click: park every visible sticker in the side gutters beside
+      // the centered main column. Cards stack vertically per side with rotation
+      // reset to 0 (straight, not tilted), and are spread across the full
+      // height of the underlying page — so scrolling the page reveals the
+      // whole list of cards alongside the content.
+      // Returns false if the viewport is too narrow to have any gutter at all.
+      function moveStickersToSides() {
+        var W = window.innerWidth;
+        var mainEl = document.querySelector('main');
+        if (!mainEl) return false;
+        var mainRect = mainEl.getBoundingClientRect();
+        var gutterW = mainRect.left;   // main has margin:auto, so left == gutter
+        if (gutterW < 180) return false;
+
+        var center = W / 2;
+        var scrollY = window.scrollY;
+        var mainTopDoc = mainRect.top + scrollY;
+        var mainHeight = mainEl.offsetHeight;
+
+        var leftCol = [];
+        var rightCol = [];
+        for (var i = 0; i < stickers.length; i++) {
+          if (!stickers[i].classList.contains('visible')) continue;
+          var x = parseFloat(stickers[i].style.left) || center;
+          (x < center ? leftCol : rightCol).push(stickers[i]);
+        }
+        // Rebalance lopsided splits.
+        if (leftCol.length === 0 && rightCol.length) leftCol = rightCol.splice(0, Math.ceil(rightCol.length / 2));
+        if (rightCol.length === 0 && leftCol.length) rightCol = leftCol.splice(0, Math.floor(leftCol.length / 2));
+
+        // Re-anchor visible stickers from viewport coords to document coords:
+        // while the stage is position:fixed, `top: Y` means Y from the viewport;
+        // once we switch the stage to absolute it'll mean Y from the document
+        // origin. Shift by scrollY so the sticker stays in place visually, with
+        // transitions off to avoid an animated jump.
+        stage.classList.add('snap');
+        void stage.offsetWidth;
+        for (var j = 0; j < stickers.length; j++) {
+          if (!stickers[j].classList.contains('visible')) continue;
+          var t = parseFloat(stickers[j].style.top) || 0;
+          stickers[j].style.top = (t + scrollY) + 'px';
+        }
+        document.body.classList.add('what-i-do-sided');
+        void stage.offsetWidth;
+
+        // Next frame: restore transitions and animate to gutter columns.
+        requestAnimationFrame(function () {
+          stage.classList.remove('snap');
+          placeColumn(leftCol, gutterW / 2);
+          placeColumn(rightCol, W - gutterW / 2);
+        });
+
+        function placeColumn(arr, columnCenterX) {
+          if (!arr.length) return;
+          arr.sort(function (a, b) {
+            return (parseFloat(a.style.top) || 0) - (parseFloat(b.style.top) || 0);
+          });
+          var minGap = 10;
+          var totalCardH = arr.reduce(function (sum, s) { return sum + s.offsetHeight; }, 0);
+          var minTotal = totalCardH + minGap * Math.max(arr.length - 1, 0);
+          var availH = Math.max(0, mainHeight - 32);
+          // Span the longer of main's full height or the tight-packed total —
+          // so few cards spread out alongside the content, and many cards
+          // extend below main, growing the page so the user can scroll to them.
+          var effectiveH = Math.max(availH, minTotal);
+          var startY = mainTopDoc + 16;
+          if (arr.length === 1) {
+            arr[0].style.left = columnCenterX + 'px';
+            arr[0].style.top = (startY + effectiveH / 2) + 'px';
+            arr[0].style.setProperty('--r', '0deg');
+            return;
+          }
+          var slot = effectiveH / arr.length;
+          arr.forEach(function (s, idx) {
+            s.style.left = columnCenterX + 'px';
+            s.style.top = (startY + slot * idx + slot / 2) + 'px';
+            s.style.setProperty('--r', '0deg');
+          });
+        }
+
+        return true;
+      }
+
       function setView(view) {
-        if (view === 'what_do_i_do') {
+        if (view === 'what_i_do') {
           // Keep whatever underlying view (highlights/details) is showing as backdrop;
           // just add the overlay on top.
-          document.body.classList.add('what-do-i-do-view');
+          document.body.classList.add('what-i-do-view');
           showStickers();
         } else {
-          document.body.classList.remove('what-do-i-do-view');
+          document.body.classList.remove('what-i-do-view');
+          document.body.classList.remove('what-i-do-sided');
+          clickStage = 0;
           if (view === 'highlights') document.body.classList.add('highlights-view');
           else document.body.classList.remove('highlights-view');
           hideStickers();
@@ -1011,11 +1181,11 @@
         url.searchParams.set('view', view);
         history.replaceState(null, '', url);
         syncNav(view);
-        if (view !== 'what_do_i_do') window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (view !== 'what_i_do') window.scrollTo({ top: 0, behavior: 'smooth' });
       }
 
       // If page loaded directly into the Why-me animation, kick it off now.
-      if (foregroundView() === 'what_do_i_do') showStickers();
+      if (foregroundView() === 'what_i_do') showStickers();
       syncNav(foregroundView());
 
       btns.forEach(function (btn) {
@@ -1023,22 +1193,52 @@
       });
 
       overlay.addEventListener('click', function () {
+        // Stage 0 → 1: skip the animation, snap every sticker into its place.
+        if (clickStage === 0) {
+          revealAllNow();
+          clickStage = 1;
+          return;
+        }
+        // Stage 1 → 2: park the stickers in the side gutters so the page is readable.
+        if (clickStage === 1) {
+          if (moveStickersToSides()) {
+            clickStage = 2;
+            // The page is now readable, so the active tab should reflect the
+            // underlying screen (Highlights or Details) instead of "What I do".
+            syncNav(document.body.classList.contains('highlights-view') ? 'highlights' : 'details');
+            return;
+          }
+          // No gutter space (mobile / narrow): fall through to dismiss.
+        }
+        // Stage 2 (or no room for sides) → dismiss to the underlying view.
         var underlying = document.body.classList.contains('highlights-view') ? 'highlights' : 'details';
         setView(underlying);
       });
 
-      // Re-flow on resize while overlay is open.
+      // Re-flow on resize while overlay is open. If we're parked at the sides
+      // we need to recompute gutter positions instead of the center-out grid.
       var resizeTimer;
       window.addEventListener('resize', function () {
-        if (!document.body.classList.contains('what-do-i-do-view')) return;
+        if (!document.body.classList.contains('what-i-do-view')) return;
         clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(function () { positionStickers(currentOrder); }, 120);
+        resizeTimer = setTimeout(function () {
+          if (clickStage === 2) {
+            if (!moveStickersToSides()) {
+              // Viewport shrank below the gutter threshold; fall back to grid.
+              document.body.classList.remove('what-i-do-sided');
+              clickStage = 1;
+              positionStickers(currentOrder);
+            }
+          } else {
+            positionStickers(currentOrder);
+          }
+        }, 120);
       });
 
       // Esc dismisses the overlay.
       document.addEventListener('keydown', function (e) {
         if (e.key !== 'Escape') return;
-        if (!document.body.classList.contains('what-do-i-do-view')) return;
+        if (!document.body.classList.contains('what-i-do-view')) return;
         var underlying = document.body.classList.contains('highlights-view') ? 'highlights' : 'details';
         setView(underlying);
       });
