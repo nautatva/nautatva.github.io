@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base target="_blank">
 
   <title>Nautatava Navlakha — Founder, Navlakha Technologies</title>
   <meta name="description"
@@ -320,56 +321,150 @@
       font-size: 0.95rem;
     }
 
-    .view-toggle {
+    .view-nav {
       display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--card);
+      padding: 0.25rem;
+      margin-top: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .view-nav button {
       font-family: inherit;
       font-size: 0.78rem;
       font-weight: 600;
       letter-spacing: 0.04em;
-      color: var(--accent);
-      background: var(--card);
-      border: 1px solid var(--border);
+      color: var(--muted);
+      background: transparent;
+      border: 0;
       border-radius: 999px;
-      padding: 0.35rem 0.85rem;
-      margin-top: 1.25rem;
+      padding: 0.4rem 0.9rem;
       cursor: pointer;
-      transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+      white-space: nowrap;
+      transition: color 0.15s ease, background 0.15s ease;
     }
 
-    .view-toggle:hover {
-      border-color: var(--accent);
-      color: var(--accent-hover);
-    }
-
-    .view-toggle-primary {
-      font-size: 0.9rem;
-      padding: 0.6rem 1.4rem;
-      margin-top: 1.75rem;
+    .view-nav button[aria-pressed="true"] {
       color: var(--bg);
       background: var(--accent);
-      border-color: var(--accent);
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 4px 12px var(--highlight);
     }
 
-    .view-toggle-primary:hover {
-      color: var(--bg);
-      background: var(--accent-hover);
-      border-color: var(--accent-hover);
-      transform: translateY(-1px);
+    .view-nav button:not([aria-pressed="true"]):hover {
+      color: var(--accent-hover);
     }
 
     body.highlights-view #now,
     body.highlights-view #work,
-    body.highlights-view #selected,
-    body.highlights-view header .view-toggle {
+    body.highlights-view #selected {
       display: none;
     }
 
     body:not(.highlights-view) #highlights {
       display: none;
     }
+
+    body.what-do-i-do-view {
+      overflow: hidden;
+    }
+
+    body.what-do-i-do-view .view-nav {
+      position: fixed;
+      top: 1.1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 200;
+      margin-top: 0;
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.18);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    }
+
+    body.what-do-i-do-view .view-nav button {
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    body.what-do-i-do-view .view-nav button[aria-pressed="true"] {
+      color: #0a0a0a;
+      background: #f5f5f4;
+    }
+
+    body.what-do-i-do-view .view-nav button:not([aria-pressed="true"]):hover {
+      color: #ffffff;
+    }
+
+    .what-do-i-do-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 10, 12, 0.86);
+      -webkit-backdrop-filter: blur(3px);
+      backdrop-filter: blur(3px);
+      z-index: 50;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.55s ease;
+    }
+
+    body.what-do-i-do-view .what-do-i-do-overlay {
+      opacity: 1;
+      pointer-events: auto;
+      cursor: pointer;
+    }
+
+    .sticker-stage {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .sticker {
+      position: absolute;
+      display: inline-block;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      border-radius: 0.6rem;
+      border: 2px solid;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+      white-space: nowrap;
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.25) rotate(0deg);
+      transition: opacity 0.45s ease, transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1);
+      will-change: opacity, transform;
+      pointer-events: none;
+    }
+
+    .sticker.visible {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1) rotate(var(--r, 0deg));
+    }
+
+    .sticker[data-size="high"] {
+      font-size: 1.3rem;
+      padding: 0.8rem 1.4rem;
+    }
+
+    .sticker[data-size="med"] {
+      font-size: 1rem;
+      padding: 0.6rem 1.1rem;
+    }
+
+    .sticker[data-size="low"] {
+      font-size: 0.82rem;
+      padding: 0.45rem 0.9rem;
+    }
+
+    .sticker-1 { color: #c2410c; background: #fff7ed; border-color: #fed7aa; }
+    .sticker-2 { color: #1d4ed8; background: #eff6ff; border-color: #bfdbfe; }
+    .sticker-3 { color: #6d28d9; background: #f5f3ff; border-color: #ddd6fe; }
+    .sticker-4 { color: #0e7490; background: #ecfeff; border-color: #a5f3fc; }
+    .sticker-5 { color: #15803d; background: #f0fdf4; border-color: #bbf7d0; }
+    .sticker-6 { color: #be123c; background: #fff1f2; border-color: #fecdd3; }
 
     footer {
       margin-top: 4rem;
@@ -395,6 +490,25 @@
 
       .stack dt {
         margin-top: 0.5rem;
+      }
+
+      .sticker[data-size="high"] {
+        font-size: 1rem;
+        padding: 0.6rem 1rem;
+      }
+
+      .sticker[data-size="med"] {
+        font-size: 0.85rem;
+        padding: 0.45rem 0.85rem;
+      }
+
+      .sticker[data-size="low"] {
+        font-size: 0.72rem;
+        padding: 0.32rem 0.7rem;
+      }
+
+      body.what-do-i-do-view .view-nav {
+        top: 0.6rem;
       }
     }
   </style>
@@ -439,16 +553,52 @@
   <script>
     (function () {
       var view = new URLSearchParams(window.location.search).get('view');
-      if (view !== 'full') {
-        document.body.classList.add('highlights-view');
-        if (view !== 'highlights') {
-          var url = new URL(window.location.href);
-          url.searchParams.set('view', 'highlights');
-          history.replaceState(null, '', url);
-        }
+      // Backwards-compat for the older URL names.
+      if (view === 'what_do_i_do') view = 'what_do_i_do';
+      if (view === 'full') view = 'details';
+      var valid = ['what_do_i_do', 'highlights', 'details'];
+      if (valid.indexOf(view) === -1) {
+        view = 'what_do_i_do';
+        var url = new URL(window.location.href);
+        url.searchParams.set('view', view);
+        history.replaceState(null, '', url);
       }
+      // "what_do_i_do" overlays on a highlights backdrop by default.
+      if (view === 'highlights' || view === 'what_do_i_do') document.body.classList.add('highlights-view');
+      if (view === 'what_do_i_do') document.body.classList.add('what-do-i-do-view');
     })();
   </script>
+  <div class="what-do-i-do-overlay" aria-hidden="true"></div>
+  <div class="sticker-stage" id="sticker-stage" aria-hidden="true">
+    <span class="sticker sticker-1" data-size="high">Remove founder bottlenecks</span>
+    <span class="sticker sticker-2" data-size="high">Own end-to-end delivery</span>
+    <span class="sticker sticker-3" data-size="high">Bridge hardware and software</span>
+    <span class="sticker sticker-4" data-size="high">Technical and commercial fluency</span>
+    <span class="sticker sticker-5" data-size="high">Turn chaos into systems</span>
+    <span class="sticker sticker-6" data-size="high">Ship production systems</span>
+    <span class="sticker sticker-1" data-size="high">Operate without handholding</span>
+    <span class="sticker sticker-2" data-size="high">Ownership</span>
+    <span class="sticker sticker-3" data-size="med">Connect legacy to modern</span>
+    <span class="sticker sticker-4" data-size="med">Scale beyond prototypes</span>
+    <span class="sticker sticker-5" data-size="med">Handle operational complexity</span>
+    <span class="sticker sticker-6" data-size="med">Build reliable infrastructure</span>
+    <span class="sticker sticker-1" data-size="med">Execute across domains</span>
+    <span class="sticker sticker-2" data-size="med">Structure scalable teams</span>
+    <span class="sticker sticker-3" data-size="med">Modernize critical systems</span>
+    <span class="sticker sticker-4" data-size="med">Find 'why' instead of 'who'</span>
+    <span class="sticker sticker-5" data-size="low">Complete ideas into products</span>
+    <span class="sticker sticker-6" data-size="low">Understand real operations</span>
+    <span class="sticker sticker-1" data-size="low">Balance speed and stability</span>
+    <span class="sticker sticker-2" data-size="low">Pragmatic architecture</span>
+    <span class="sticker sticker-3" data-size="high">Close deals AND ship code</span>
+    <span class="sticker sticker-4" data-size="high">Senior judgement, hands-on execution</span>
+    <span class="sticker sticker-5" data-size="med">Force multiplier across teams</span>
+    <span class="sticker sticker-6" data-size="med">See product, not just code</span>
+    <span class="sticker sticker-1" data-size="med">Decide under ambiguity</span>
+    <span class="sticker sticker-2" data-size="med">Spot risk before it ships</span>
+    <span class="sticker sticker-3" data-size="low">Outcome over output</span>
+    <span class="sticker sticker-4" data-size="low">Bring dev-sec-ops by default</span>
+  </div>
   <main>
     <header>
       <h1>Nautatava Navlakha</h1>
@@ -457,7 +607,7 @@
         <li class="chip-iitb">IIT Bombay '20</li>
         <li class="chip-isro">ISRO-funded research</li>
         <li class="chip-arctic">Arctic Code Vault Contributor</li>
-        <li class="chip-podar">Ex-podarite</li>
+        <li class="chip-podar">Ex-Podar</li>
       </ul>
       <p class="lede">
         Over 10 years in engineering and 4 years in product, combining deep expertise in <strong>high‑volume, low‑latency, multi‑provider abstraction layered code</strong> with strong business intuition and client leadership.
@@ -465,7 +615,11 @@
       <p class="lede-coda">
         — I've written code in almost every mainstream programming language.
       </p>
-      <button class="view-toggle js-view-toggle" type="button" aria-pressed="true">← Full view</button>
+      <nav class="view-nav" aria-label="View mode">
+        <button type="button" class="js-view-btn" data-view="what_do_i_do">What I do</button>
+        <button type="button" class="js-view-btn" data-view="highlights">Highlights</button>
+        <button type="button" class="js-view-btn" data-view="details">Details</button>
+      </nav>
     </header>
 
     <section id="highlights">
@@ -476,14 +630,13 @@
         <li>Founding Consultant, <a href="https://monoedge.in">MonoEdge</a> — <em>RAG + LangChain</em> data analyst for manufacturing.</li>
         <li>Co-founded <a href="https://kwikpic.in">Kwikpic</a> — now serves <strong>65+ countries and ~200M photos/year</strong>; single-shot <em>face embeddings + similarity search</em> at <strong>2M+ face</strong> scale.</li>
         <li><strong>~1000% throughput improvement</strong> on deal processing at <a href="https://www.finmechanics.com">FinMechanics</a> via <em>vectorised pricing</em> & <em>async event-driven architecture</em>.</li>
-        <li>closed sales at <em>NSE</em>, <em>Jio Financial Services</em>, <em>Poonawalla Fincorp</em>; Led fixed-income back-office go-live handling <strong>portfolio value &gt; ₹75,000 Cr</strong>.</li>
-        <li><strong>Youngest member</strong> of <em>FinMechanics' Global Production Support</em> and <em>Infra Management team </em>.</li>
+        <li>Closed sales at <em>NSE</em>, <em>Jio Financial Services</em>, <em>Poonawalla Fincorp</em>; Led fixed-income back-office go-live handling <strong>portfolio value &gt; ₹75,000 Cr</strong>.</li>
+        <li><strong>Youngest member</strong> of <em>FinMechanics' Global Production Support</em> and <em>Infra Management team</em>.</li>
         <li>Migrated IIT Bombay's identity infrastructure (<strong>~23k users</strong>) to <strong>OAuth 2.0 + OIDC</strong> — still the core login for WiFi, Moodle, ASC, Webmail.</li>
         <li>Shipped spell-check for <a href="https://github.com/sindresorhus/electron-context-menu">electron-context-menu</a> (<strong>4,000+ dependent repos</strong>); GitHub <em>Arctic Code Vault Contributor</em> — Electron, Caprine, Frappe.</li>
         <li>ISRO-funded B.Tech thesis — <strong>90% accuracy</strong> on two-lane road detection from satellite imagery vs. 73% prior state-of-the-art.</li>
         <li>Worked across engineering, product, sales, implementations, infrastructure, quant as well as project management.</li>
       </ul>
-      <button class="view-toggle view-toggle-primary js-view-toggle" type="button" aria-pressed="true">← Full view</button>
     </section>
 
     <section id="now">
@@ -663,24 +816,231 @@
 
   <script>
     (function () {
-      var toggles = document.querySelectorAll('.js-view-toggle');
-      if (!toggles.length) return;
-      function sync(on) {
-        toggles.forEach(function (btn) {
-          btn.textContent = on ? '← Full view' : 'Highlights view →';
-          btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      var btns = document.querySelectorAll('.js-view-btn');
+      var stage = document.getElementById('sticker-stage');
+      var overlay = document.querySelector('.what-do-i-do-overlay');
+      if (!btns.length || !stage || !overlay) return;
+      var stickers = stage.querySelectorAll('.sticker');
+      var revealTimers = [];
+      var currentOrder = null; // last reveal order, reused on resize
+
+      function foregroundView() {
+        if (document.body.classList.contains('what-do-i-do-view')) return 'what_do_i_do';
+        if (document.body.classList.contains('highlights-view')) return 'highlights';
+        return 'details';
+      }
+
+      function syncNav(view) {
+        btns.forEach(function (btn) {
+          btn.setAttribute('aria-pressed', btn.dataset.view === view ? 'true' : 'false');
         });
       }
-      sync(document.body.classList.contains('highlights-view'));
-      toggles.forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          var on = document.body.classList.toggle('highlights-view');
-          sync(on);
-          var url = new URL(window.location.href);
-          url.searchParams.set('view', on ? 'highlights' : 'full');
-          history.replaceState(null, '', url);
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      function shuffle(arr) {
+        for (var i = arr.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+        }
+        return arr;
+      }
+
+      function positionStickers(order) {
+        var W = window.innerWidth;
+        var H = window.innerHeight;
+        var navBuffer = 80; // keep top clear for floating nav
+        var edgeY = 16;
+        var availW = W;
+        var availH = H - navBuffer - edgeY;
+        var n = stickers.length;
+        var aspect = availW / Math.max(availH, 1);
+        var cols = Math.max(3, Math.round(Math.sqrt(n * aspect)));
+        var rows = Math.ceil(n / cols);
+        var cellW = availW / cols;
+        var cellH = availH / rows;
+
+        // Build cells with their center coords. We want earliest-revealed
+        // stickers in the central region and later ones to fan outward, but
+        // within a given "ring" of distance the left/right side should be
+        // random — not a strict alternation or stable sort.
+        var centerX = W / 2;
+        var centerY = navBuffer + availH / 2;
+        var cells = [];
+        for (var r = 0; r < rows; r++) {
+          for (var c = 0; c < cols; c++) {
+            var cx = (c + 0.5) * cellW;
+            var cy = navBuffer + (r + 0.5) * cellH;
+            var dx = cx - centerX;
+            var dy = cy - centerY;
+            cells.push({ cx: cx, cy: cy, dist: Math.sqrt(dx * dx + dy * dy) });
+          }
+        }
+        cells.sort(function (a, b) { return a.dist - b.dist; });
+        // Group into concentric rings (~one cell-step thick), shuffle each
+        // ring, then flatten back. Inner rings still come first, but which
+        // side of the centre a sticker lands on inside a ring is random.
+        var ringSize = Math.min(cellW, cellH) * 0.85;
+        var rings = [];
+        var curRing = [];
+        var ringStart = cells.length ? cells[0].dist : 0;
+        for (var ci = 0; ci < cells.length; ci++) {
+          if (cells[ci].dist - ringStart > ringSize) {
+            rings.push(curRing);
+            curRing = [];
+            ringStart = cells[ci].dist;
+          }
+          curRing.push(cells[ci]);
+        }
+        if (curRing.length) rings.push(curRing);
+        cells = [];
+        rings.forEach(function (ring) {
+          shuffle(ring);
+          for (var ri = 0; ri < ring.length; ri++) cells.push(ring[ri]);
         });
+
+        // Fall back to DOM order if no reveal order was supplied.
+        if (!order || order.length !== n) {
+          order = [];
+          for (var k = 0; k < n; k++) order.push(k);
+        }
+
+        // Cache natural dimensions (independent of transform/opacity).
+        var dims = [];
+        for (var i = 0; i < n; i++) {
+          dims.push({ w: stickers[i].offsetWidth, h: stickers[i].offsetHeight });
+        }
+
+        // Rotation: each sticker picks its own angle in [-ROT_MAX, +ROT_MAX].
+        // The only constraint is that no 3 consecutive stickers share the same
+        // sign — if the previous two leaned the same way, force this one the
+        // other way.
+        var ROT_MAX = 25;
+        var lastSign = 0;
+        var sameStreak = 0;
+        order.forEach(function (stickerIdx, k) {
+          var d = dims[stickerIdx];
+          var cell = cells[k] || cells[k % cells.length];
+          var jx = (Math.random() - 0.5) * cellW * 0.55;
+          var jy = (Math.random() - 0.5) * cellH * 0.55;
+          var x = cell.cx + jx;
+          var y = cell.cy + jy;
+          // Clamp so the (un-rotated) bounding box stays inside the viewport.
+          var halfW = d.w / 2 + 6;
+          var halfH = d.h / 2 + 6;
+          x = Math.max(halfW, Math.min(W - halfW, x));
+          y = Math.max(navBuffer + halfH, Math.min(H - halfH, y));
+          var rot;
+          if (sameStreak >= 2) {
+            // Last two had the same sign — force the opposite.
+            rot = -lastSign * (Math.random() * ROT_MAX);
+          } else {
+            rot = (Math.random() * 2 - 1) * ROT_MAX;
+          }
+          var sign = rot >= 0 ? 1 : -1;
+          if (sign === lastSign) sameStreak += 1;
+          else sameStreak = 1;
+          lastSign = sign;
+          stickers[stickerIdx].style.left = x + 'px';
+          stickers[stickerIdx].style.top = y + 'px';
+          stickers[stickerIdx].style.setProperty('--r', rot.toFixed(2) + 'deg');
+        });
+      }
+
+      function clearRevealTimers() {
+        revealTimers.forEach(function (t) { clearTimeout(t); });
+        revealTimers = [];
+      }
+
+      function wordCount(el) {
+        var text = (el.textContent || '').trim();
+        if (!text) return 1;
+        var tokens = text.split(/\s+/).filter(function (t) { return /\w/.test(t); });
+        return Math.max(1, tokens.length);
+      }
+
+      function showStickers() {
+        clearRevealTimers();
+        stickers.forEach(function (s) {
+          s.classList.remove('visible');
+          s.style.zIndex = '';
+        });
+        // Build the reveal order first so positioning can place the earliest-
+        // revealed stickers in the central cells.
+        currentOrder = [];
+        for (var i = 0; i < stickers.length; i++) currentOrder.push(i);
+        shuffle(currentOrder);
+        positionStickers(currentOrder);
+        // Random order across all stickers (no priority bias).
+        // Each sticker holds the floor for wordCount × (500–750ms) before the next
+        // pops in — readable, consistent pacing. Each new sticker layers above
+        // previously-revealed ones (drop-on-pile effect).
+        var elapsed = 100; // brief pause after overlay starts fading in
+        var stack = 0;
+        currentOrder.forEach(function (i) {
+          revealTimers.push(setTimeout(function () {
+            stack += 1;
+            stickers[i].style.zIndex = String(stack);
+            stickers[i].classList.add('visible');
+          }, elapsed));
+          const LOWER_BASE_TIME = 150; // base time per word in ms
+          const UPPER_BASE_TIME = 300; // additional random variance in ms
+          var perWord = LOWER_BASE_TIME + Math.random() * UPPER_BASE_TIME; // 500–750ms per word
+          const word_time = wordCount(stickers[i]) * perWord;
+          const MAX_WORD_TIME = 2000; // cap time per sticker to 2s for very long ones
+          elapsed += Math.min(word_time, MAX_WORD_TIME); // brief pause between stickers
+        });
+      }
+
+      function hideStickers() {
+        clearRevealTimers();
+        stickers.forEach(function (s) { s.classList.remove('visible'); });
+      }
+
+      function setView(view) {
+        if (view === 'what_do_i_do') {
+          // Keep whatever underlying view (highlights/details) is showing as backdrop;
+          // just add the overlay on top.
+          document.body.classList.add('what-do-i-do-view');
+          showStickers();
+        } else {
+          document.body.classList.remove('what-do-i-do-view');
+          if (view === 'highlights') document.body.classList.add('highlights-view');
+          else document.body.classList.remove('highlights-view');
+          hideStickers();
+        }
+        var url = new URL(window.location.href);
+        url.searchParams.set('view', view);
+        history.replaceState(null, '', url);
+        syncNav(view);
+        if (view !== 'what_do_i_do') window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      // If page loaded directly into the Why-me animation, kick it off now.
+      if (foregroundView() === 'what_do_i_do') showStickers();
+      syncNav(foregroundView());
+
+      btns.forEach(function (btn) {
+        btn.addEventListener('click', function () { setView(btn.dataset.view); });
+      });
+
+      overlay.addEventListener('click', function () {
+        var underlying = document.body.classList.contains('highlights-view') ? 'highlights' : 'details';
+        setView(underlying);
+      });
+
+      // Re-flow on resize while overlay is open.
+      var resizeTimer;
+      window.addEventListener('resize', function () {
+        if (!document.body.classList.contains('what-do-i-do-view')) return;
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () { positionStickers(currentOrder); }, 120);
+      });
+
+      // Esc dismisses the overlay.
+      document.addEventListener('keydown', function (e) {
+        if (e.key !== 'Escape') return;
+        if (!document.body.classList.contains('what-do-i-do-view')) return;
+        var underlying = document.body.classList.contains('highlights-view') ? 'highlights' : 'details';
+        setView(underlying);
       });
     })();
   </script>
