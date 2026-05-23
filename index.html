@@ -1245,6 +1245,12 @@
           const MAX_WORD_TIME = 2000; // cap time per sticker to 2s for very long ones
           elapsed += Math.min(word_time, MAX_WORD_TIME); // brief pause between stickers
         });
+        // Once natural reveal finishes, advance the click stage so the next
+        // overlay click moves cards into the side gutters instead of wasting a
+        // click re-running revealAllNow on already-visible stickers.
+        revealTimers.push(setTimeout(function () {
+          if (clickStage === 0) clickStage = 1;
+        }, elapsed));
       }
 
       function hideStickers() {
