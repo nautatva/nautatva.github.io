@@ -1263,6 +1263,38 @@
       }
 
       function setView(view) {
+        var inWhatIDo = document.body.classList.contains('what-i-do-view');
+        // While the user is still inside the What-I-do overlay (animating or
+        // all-revealed but not yet parked), clicking Highlights/Details should
+        // flip the underlying view and slide the cards into the gutters. Once
+        // they're already sided — i.e. effectively reading the page — those
+        // same clicks should fully dismiss the cards instead.
+        if (inWhatIDo && clickStage < 2 && (view === 'highlights' || view === 'details')) {
+          if (view === 'highlights') document.body.classList.add('highlights-view');
+          else document.body.classList.remove('highlights-view');
+          if (clickStage === 0) {
+            revealAllNow();
+            clickStage = 1;
+          }
+          if (clickStage === 1) {
+            if (moveStickersToSides()) {
+              clickStage = 2;
+            } else {
+              // No gutter room (mobile / narrow): just dismiss to the view.
+              document.body.classList.remove('what-i-do-view');
+              document.body.classList.remove('what-i-do-sided');
+              clickStage = 0;
+              hideStickers();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+          }
+          var url = new URL(window.location.href);
+          url.searchParams.set('view', view);
+          history.replaceState(null, '', url);
+          syncNav(view);
+          return;
+        }
+
         if (view === 'what_i_do') {
           // Keep whatever underlying view (highlights/details) is showing as backdrop;
           // just add the overlay on top.
