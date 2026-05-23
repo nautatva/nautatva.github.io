@@ -423,6 +423,13 @@
       display: none;
     }
 
+    /* Chatbox lives in #chatbox-root. Hide while the immersive "What I do"
+       overlay is up, but show once stickers have parked in the side gutters
+       (sided state) or on the Highlights / Details views. */
+    body.what-i-do-view:not(.what-i-do-sided) #chatbox-root {
+      display: none !important;
+    }
+
     body.what-i-do-view {
       overflow: hidden;
     }
@@ -1387,6 +1394,165 @@
       gtag('js', new Date());
       gtag('config', 'UA-144537534-1');
     }
+  </script>
+
+  <!-- Chatbox (Consult / Hire / Partner lead capture) ====================
+       Library: github.com/thenb-in/chatbox, served via jsDelivr. Mailer
+       endpoint and steps are configured inline below; profile/attribution
+       adapters are intentionally omitted (this is a single-page personal
+       site, not the multi-product NT funnel). -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/thenb-in/chatbox@main/src/chatbox.css">
+  <!-- Country list + searchable dial-code dropdown live in the chatbox repo
+       as sibling modules. Load BEFORE chatbox.js so the adapters are on
+       window when Chatbox.init() runs. ip-location.js will skip its IP fetch
+       gracefully if no NTVisitorProfile is on the page. -->
+  <script defer src="https://cdn.jsdelivr.net/gh/thenb-in/chatbox@main/src/ip-location.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/thenb-in/chatbox@main/src/dial-picker.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/thenb-in/chatbox@main/src/chatbox.js"></script>
+  <div id="chatbox-root"></div>
+  <script>
+    (function () {
+      var INTENTS = [
+        { key: 'consult', label: 'Consult' },
+        { key: 'hire',    label: 'Hire' },
+        { key: 'partner', label: 'Partner' }
+      ];
+      var INTENT_LABEL = INTENTS.reduce(function (m, x) { m[x.key] = x.label; return m; }, {});
+
+      function esc(x) {
+        return String(x == null ? '' : x)
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
+
+      function subjectBuilder(payload) {
+        var d = payload.data, s = payload.stage;
+        var who = d.name || d.phone || d.email || 'lead';
+        var icon = s.isFinal ? '✅' : (s.meta.icon || '📝');
+        var label = s.isFinal ? 'COMPLETE' : (s.meta.label || s.stageName);
+        var intents = (d.interests || []).map(function (k) { return INTENT_LABEL[k] || k; }).join(' / ');
+        return '[nautatva.github.io] Mail #' + s.mailNum + ' — ' + icon + ' ' + label +
+               ' — ' + who + (intents ? ' (' + intents + ')' : '');
+      }
+
+      function bodyBuilder(payload) {
+        var d = payload.data, s = payload.stage;
+        var intentText = (d.interests || [])
+          .map(function (k) { return INTENT_LABEL[k] || k; })
+          .join(', ');
+        var rows = [
+          ['Name',         d.name],
+          ['Phone',        d.phone],
+          ['Email',        d.email],
+          ['Intent',       intentText],
+          ['Requirements', d.requirements],
+          ['Page',         location.href],
+          ['Stage',        s.stageNum + ' of ' + (s.totalStages || '?') + ' — ' + s.stageName]
+        ].filter(function (r) { return r[1]; });
+
+        var trs = rows.map(function (r, i) {
+          var border = i === rows.length - 1 ? '' : 'border-bottom:1px solid #f1f5f9;';
+          return '<tr>' +
+            '<td style="padding:8px 14px;color:#64748b;font-size:13px;width:35%;vertical-align:top;' + border + '">' + esc(r[0]) + '</td>' +
+            '<td style="padding:8px 14px;color:#0f172a;font-size:13px;vertical-align:top;' + border + '">' + esc(r[1]) + '</td>' +
+          '</tr>';
+        }).join('');
+
+        var headerLabel = s.isFinal ? 'Lead — Complete' : 'Chatbot Mail #' + s.mailNum;
+
+        return [
+          '<!DOCTYPE html><html><body style="font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;background:#f3f4f6;padding:28px 0;margin:0;">',
+          '<table width="560" align="center" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 3px rgba(15,23,42,0.06);">',
+          '<tr><td style="background:#0d6b6b;color:#fff;padding:20px 24px;">',
+            '<p style="margin:0;font-size:11px;color:#5eead4;letter-spacing:1px;text-transform:uppercase;">nautatva.github.io · chatbot</p>',
+            '<h1 style="margin:6px 0 0;font-size:19px;">' + esc(headerLabel) + '</h1>',
+            '<p style="margin:4px 0 0;font-size:12px;color:#a8e6e6;">Stage ' + s.stageNum + '/' + (s.totalStages || '?') + ' · ' + esc(s.stageName) + '</p>',
+          '</td></tr>',
+          '<tr><td style="padding:20px 24px;">',
+            '<table width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;background:#fafbfc;border:1px solid #e5e7eb;border-radius:6px;">',
+              trs,
+            '</table>',
+          '</td></tr>',
+          '<tr><td style="padding:14px 24px;color:#94a3b8;font-size:11px;border-top:1px solid #f1f5f9;">',
+            'Automated from the chatbot on nautatva.github.io. Reply to this thread to contact the lead directly.',
+          '</td></tr>',
+          '</table></body></html>'
+        ].join('');
+      }
+
+      function initChatbox() {
+        if (!window.Chatbox) { return setTimeout(initChatbox, 80); }
+
+        window.Chatbox.init({
+          storageKey: 'nautatva_chat_v1',
+          mountId:    'chatbox-root',
+          stylesId:   'nautatva-chat-styles',
+
+          brand: {
+            name:          'Nautatava',
+            avatarText:    'NN',
+            tagline:       'Usually replies within a day',
+            launcherTitle: "Let's talk",
+            launcherSub:   'Consult · Hire · Partner'
+          },
+
+          steps: ['phone', 'interests', 'name', 'requirements'],
+          stepMeta: {
+            phone:        { icon: '📞', label: 'phone',        send_mail: true },
+            interests:    { icon: '🎯', label: 'intent',       send_mail: true },
+            name:         { icon: '👤', label: 'name',         send_mail: true },
+            requirements: { icon: '📝', label: 'context',      send_mail: true }
+          },
+          interests: INTENTS,
+
+          autoExpand:     false,
+          whatsappNumber: '918275269688',
+
+          mailer: {
+            url:        'https://mailer.nbnext.in/api/v1/mail/send',
+            secretKey:  '446552b8-5107-4865-9c07-62de4bc1eb1e',
+            recipients: ['nautatva@navlakha.tech'],
+            subject:    subjectBuilder,
+            body:       bodyBuilder
+          },
+
+          ipLocation: window.NTIPLocation || null,
+          dialPicker: window.NTDialPicker || null
+        });
+
+        armAutoExpand();
+      }
+
+      // Auto-expand the chatbox 5 s after the visitor finishes the "What I do"
+      // intro — i.e. once they've either dismissed the overlay (no
+      // .what-i-do-view on <body>) or parked stickers in the side gutters
+      // (.what-i-do-sided). Fires once per session.
+      function armAutoExpand() {
+        var EXPAND_DELAY_MS = 5000;
+        var fired = false;
+        var pending = null;
+        function done() {
+          if (fired) return;
+          var cls = document.body.classList;
+          if (cls.contains('what-i-do-view') && !cls.contains('what-i-do-sided')) return;
+          fired = true;
+          if (observer) observer.disconnect();
+          pending = setTimeout(function () {
+            if (window.Chatbox && Chatbox.open) {
+              try { Chatbox.open({ focused: false }); } catch (e) {}
+            }
+          }, EXPAND_DELAY_MS);
+        }
+        var observer = new MutationObserver(done);
+        observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+        done(); // covers direct landings on ?view=highlights / ?view=details
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initChatbox);
+      } else {
+        initChatbox();
+      }
+    })();
   </script>
 </body>
 
