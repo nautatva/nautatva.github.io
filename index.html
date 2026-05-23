@@ -1479,6 +1479,7 @@
 
   <!-- Google tag (gtag.js) -->
   <script>
+    window.trackEvent = function () {}; // no-op default for non-prod hosts
     if (location.hostname === 'nautatva.github.io') {
       var s = document.createElement('script');
       s.async = true;
@@ -1488,7 +1489,63 @@
       function gtag() { dataLayer.push(arguments); }
       gtag('js', new Date());
       gtag('config', 'G-3Z7KXKL7GG');
+      window.trackEvent = function (name, params) {
+        try { gtag('event', name, params || {}); } catch (e) {}
+      };
     }
+  </script>
+
+  <!-- Custom event tracking: view switch, outbound / contact / PDF clicks.
+       Chatbox funnel events fire from inside the chatbox init block below. -->
+  <script>
+    (function () {
+      function track(name, params) { (window.trackEvent || function () {})(name, params); }
+
+      // View switcher (What I do / Highlights / Details).
+      document.querySelectorAll('.js-view-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          track('view_switch', { view: btn.dataset.view });
+        });
+      });
+
+      // Delegated link tracking — capture phase so it fires before any
+      // navigation handler steals the click.
+      document.addEventListener('click', function (e) {
+        var a = e.target && e.target.closest && e.target.closest('a[href]');
+        if (!a) return;
+        var raw = a.getAttribute('href') || '';
+        var url;
+        try { url = new URL(raw, location.href); } catch (err) { return; }
+
+        var path = url.pathname || '';
+        if (/\.pdf($|\?)/i.test(path)) {
+          track('pdf_download', {
+            file_name: path.split('/').pop() || raw,
+            link_url: url.href
+          });
+          return;
+        }
+        if (url.protocol === 'mailto:') {
+          track('contact_click', { method: 'email', link_url: raw });
+          return;
+        }
+        if (url.protocol === 'tel:') {
+          track('contact_click', { method: 'phone', link_url: raw });
+          return;
+        }
+        if (/(?:^|\.)wa\.me$|whatsapp\.com$/i.test(url.hostname)) {
+          track('contact_click', { method: 'whatsapp', link_url: raw });
+          return;
+        }
+        if (url.hostname && url.hostname !== location.hostname) {
+          track('outbound_click', {
+            link_domain: url.hostname,
+            link_url: url.href,
+            link_text: (a.textContent || '').trim().slice(0, 80)
+          });
+        }
+      }, true);
+    })();
   </script>
 
   <!-- Chatbox (Consult / Hire / Partner lead capture) ====================
@@ -1521,6 +1578,18 @@
 
       function subjectBuilder(payload) {
         var d = payload.data, s = payload.stage;
+        // GA: per-stage funnel event, with intents once the user has picked them.
+        try {
+          (window.trackEvent || function () {})(
+            s.isFinal ? 'chatbox_complete' : 'chatbox_stage',
+            {
+              stage_name: s.stageName,
+              stage_num: s.stageNum,
+              total_stages: s.totalStages || null,
+              intents: (d.interests || []).join(',') || null
+            }
+          );
+        } catch (e) {}
         var who = d.name || d.phone || d.email || 'lead';
         var icon = s.isFinal ? '✅' : (s.meta.icon || '📝');
         var label = s.isFinal ? 'COMPLETE' : (s.meta.label || s.stageName);
@@ -1634,6 +1703,7 @@
           pending = setTimeout(function () {
             if (window.Chatbox && Chatbox.open) {
               try { Chatbox.open({ focused: false }); } catch (e) {}
+              try { (window.trackEvent || function () {})('chatbox_auto_open', {}); } catch (e) {}
             }
           }, EXPAND_DELAY_MS);
         }
